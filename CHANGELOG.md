@@ -1,6 +1,7 @@
 # Unreleased
 
 ## 17/11/2020
+- (@danielsolartech) Update shroom package version to 0.1.4.
 - (@danielsolartech) Add user info, currency and avatar packets.
 - (@danielsolartech) (Web) Add Redux to client states.
 - (@danielsolartech) (Web) Add websocket client.
