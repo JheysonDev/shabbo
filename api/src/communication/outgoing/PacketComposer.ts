@@ -1,9 +1,7 @@
 class PacketComposer {
     private data: string;
 
-    constructor(
-        private name: string,
-    ) {
+    constructor(private name: string) {
         this.data = '';
     }
 
@@ -12,7 +10,7 @@ class PacketComposer {
             this.data += '||';
         }
 
-        this.data += data;
+        this.data += String(data);
     }
 
     protected writeString(str: string): void {

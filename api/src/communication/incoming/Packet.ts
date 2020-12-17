@@ -3,57 +3,42 @@ class Packet {
     private position: number;
 
     constructor(data: string) {
-        this.data = data.split('||');
+        this.data = data ? data.split('||') : [];
         this.position = -1;
     }
 
     async readString(): Promise<string> {
-        try {
-            if (this.data.length === this.position + 1) {
-                throw new Error('No more data.');
-            }
-
-            const data: string = this.data[++this.position];
-
-            if (!data.length) {
-                throw new Error('No data.');
-            }
-
-            return data;
-        } catch (error) {
-            await Promise.reject(error);
-            return '';
+        if (this.data.length === this.position + 1) {
+            throw new Error('No more data.');
         }
+
+        const data: string = this.data[++this.position];
+
+        if (!data.length) {
+            throw new Error('No data.');
+        }
+
+        return data;
     }
 
     async readInteger(): Promise<number> {
-        try {
-            const number: number = Number(await this.readString());
+        const number: number = Number(await this.readString());
 
-            if (isNaN(number)) {
-                throw new Error('The data is not an integer.');
-            }
-
-            return number;
-        } catch (error) {
-            await Promise.reject(error);
-            return 0;
+        if (isNaN(number)) {
+            throw new Error('The data is not an integer.');
         }
+
+        return number;
     }
 
     async readBoolean(): Promise<boolean> {
-        try {
-            const data: string = await this.readString();
+        const data: string = await this.readString();
 
-            if (data !== 'false' && data !== 'true') {
-                throw new Error('The data is not a boolean.');
-            }
-
-            return data === 'true';
-        } catch (error) {
-            await Promise.reject(error);
-            return false;
+        if (data !== 'false' && data !== 'true') {
+            throw new Error('The data is not a boolean.');
         }
+
+        return data === 'true';
     }
 }
 

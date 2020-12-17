@@ -39,7 +39,11 @@ class Server {
     }
 
     async run(): Promise<void> {
-        this.getAPP().use(Cors());
+        await this.getCommunication().run();
+
+        this.getAPP().use(Cors({ optionsSuccessStatus: 200 }));
+
+        this.getAPP().use(Express.urlencoded({ extended: true }));
         this.getAPP().use(Express.json());
 
         if (this.controllers.length) {
@@ -47,8 +51,6 @@ class Server {
                 this.getAPP().use(`/${controller.getName()}`, controller.getRouter());
             });
         }
-
-        await this.getCommunication().run();
     }
 
     listen(): void {

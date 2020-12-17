@@ -1,14 +1,23 @@
 import { Server as HTTPServer } from 'http';
 import { Server as SocketServer, Socket } from 'socket.io';
 import Connection from './Connection';
-import StartConnectionComposer from './outgoing/users/ConnectComposer';
+import ConnectComposer from './outgoing/users/ConnectComposer';
 
 class Communication {
     private server: SocketServer;
     private connections: Connection[];
 
     constructor(http: HTTPServer) {
-        this.server = new SocketServer(http);
+        this.server = new SocketServer(
+            http,
+            {
+                cors: {
+                    origin: 'http://localhost:3000',
+                    methods: ['GET', 'POST']
+                }
+            }
+        );
+
         this.connections = [];
     }
 
@@ -45,7 +54,7 @@ class Communication {
 
             if (user) {
                 if (this.addConnection(connection)) {
-                    await connection.sendPacket(new StartConnectionComposer(user, connection));
+                    await connection.sendPacket(new ConnectComposer(user, connection));
                 }
             }
         });
