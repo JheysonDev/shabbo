@@ -1,4 +1,6 @@
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import { Provider } from 'react-redux';
+import clientStore from "../data/stores/clientStore";
 import Client from "./Client";
 import Login from "./Login";
 import "./styles/SHabbo.scss";
@@ -10,9 +12,24 @@ function SHabbo() {
     return (
         <BrowserRouter>
             <Switch>
-                <Route path="/client" render={() => isLogged ? <Client userID={userID} /> : <Redirect to="/" />} />
-                <Route path="/signin" render={() => isLogged ? <Redirect to="/" /> : <Login />} />
-                <Route path="/" render={() => <Redirect to={isLogged ? '/client' : '/signin'} />} />
+                <Route
+                    path="/client"
+                    render={
+                        () => (
+                            isLogged
+                                ? <Provider store={clientStore}><Client userID={userID} /></Provider>
+                                : <Redirect to="/" />
+                        )
+                    }
+                />
+                <Route
+                    path="/signin"
+                    render={() => isLogged ? <Redirect to="/" /> : <Login />}
+                />
+                <Route
+                    path="/"
+                    render={() => <Redirect to={isLogged ? '/client' : '/signin'} />}
+                />
             </Switch>
         </BrowserRouter>
     );

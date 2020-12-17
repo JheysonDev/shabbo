@@ -1,51 +1,36 @@
-import { useState, useEffect } from 'react';
-import Axios from 'axios';
-import IUser from '../interfaces/IUser';
-import { API_URL } from '../utils/variables';
+import { useState } from 'react';
 import { Application } from 'pixi.js';
 import { Shroom } from '@jankuss/shroom';
-import IClientState from '../interfaces/IClientState';
+import Connection from '../communication/Connection';
+import IMainState from '../interfaces/client/states/IMainState';
+import { useDispatch, useSelector } from 'react-redux';
+import IClientStates from '../interfaces/client/states/IClientStates';
+import { setGameApplication, setGameManager } from '../data/actions/client/mainActions';
 
 function Client({ userID }: { userID: number }) {
-    const [userData, setUserData] = useState<IUser | null>(null);
-    const [fetched, setFetched] = useState<boolean>(false);
+    const [connection, setConnection] = useState<Connection | null>(null);
     const [gameElement, setGameElement] = useState<HTMLCanvasElement | null>(null);
-    const [pixiAPP, setPixiAPP] = useState<Application | null>(null);
-    const [gameManager, setGameManager] = useState<Shroom | null>(null);
+    const dispatch = useDispatch();
+    const main: IMainState = useSelector((states: IClientStates) => states.main);
 
-    const [clientState, setClientState] = useState<IClientState>({
-        current_room_id: 0,
-    });
-
-    if (!userData && !fetched) {
-        setFetched(true);
-
-        Axios.get(`${API_URL}/users/id/${userID}`)
-            .then((data) => setUserData(data.data))
-            .catch(console.error);
+    if (!connection) {
+        setConnection(new Connection(userID));
+        return null;
     }
 
-    useEffect(() => {
-        if (gameElement && !pixiAPP) {
-            setPixiAPP(new Application({
-                view: gameElement,
-                width: window.innerWidth,
-                height: window.innerHeight
-            }));
-        }
-    }, [gameElement, pixiAPP]);
+    if (!main.gameApplication && gameElement) {
+        dispatch(setGameApplication(new Application({
+            view: gameElement,
+            width: window.innerWidth,
+            height: window.innerHeight,
+        })))
+    }
 
-    useEffect(() => {
-        if (pixiAPP && !gameManager) {
-            setGameManager(Shroom.create({
-                application: pixiAPP,
-                resourcePath: "http://localhost:5500"
-            }));
-        }
-    }, [pixiAPP, gameManager]);
-
-    if (!userData) {
-        return null;
+    if (main.gameApplication && !main.gameManager) {
+        dispatch(setGameManager(Shroom.create({
+            application: main.gameApplication,
+            resourcePath: "http://localhost:5500"
+        })));
     }
 
     window.onresize = () => {
@@ -63,4 +48,3 @@ function Client({ userID }: { userID: number }) {
 }
 
 export default Client;
-
