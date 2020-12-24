@@ -1,10 +1,10 @@
-import IUserState from '../../../interfaces/client/states/IUserState';
-import { SET_CONNECTED, SET_USER_AVATAR, SET_USER_CURRENCY, SET_USER_INFO } from '../../actions/client/userActions';
-import Reducer from '../Reducer';
+import { SET_CONNECTED, SET_USER_AVATAR, SET_USER_CURRENCY, SET_USER_INFO } from "../../actions/client/userActions";
 
 const initial_state: IUserState = {
     connected: false,
     user: {},
+    
+    current_room: 0,
 };
 
 const userReducer: Reducer<IUserState> = (state = initial_state, action) => {

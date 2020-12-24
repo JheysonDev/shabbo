@@ -1,0 +1,3 @@
+interface IClientStates {
+    user: IUserState;
+}

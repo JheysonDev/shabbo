@@ -10,7 +10,11 @@ class UserAvatarEvent implements PacketEvent {
         const gender = await packet.readString();
         const motto = await packet.readString();
 
-        clientStore.dispatch(setUserAvatar({ look, gender: gender === 'M' ? 'M' : 'F', motto }));
+        clientStore.dispatch(setUserAvatar({
+            look,
+            gender: gender === 'M' ? 'M' : 'F',
+            motto
+        }));
     }
 }
 

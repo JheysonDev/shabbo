@@ -1,6 +1,3 @@
-import { IUserAvatar, IUserCurrency, IUserInfo } from "../../../interfaces/client/IUser";
-import Action from "../Action";
-
 export const SET_CONNECTED = 'SET_CONNECTED';
 
 export function setConnected(connected: boolean): Action<boolean> {

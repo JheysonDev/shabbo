@@ -1,16 +1,16 @@
-export interface IUserInfo {
+interface IUserInfo {
     id: number;
     username: string;
 }
 
-export interface IUserCurrency {
+interface IUserCurrency {
     credits: number;
     diamonds: number;
 }
 
-export type IUserGender = 'M' | 'F';
+type IUserGender = 'M' | 'F';
 
-export interface IUserAvatar {
+interface IUserAvatar {
     look: string;
     gender: IUserGender;
     motto: string;
@@ -21,5 +21,3 @@ interface IUser {
     currency?: IUserCurrency;
     avatar?: IUserAvatar;
 }
-
-export default IUser;
