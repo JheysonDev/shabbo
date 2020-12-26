@@ -1,9 +1,10 @@
 import PacketComposer from '@Communication/outgoing/PacketComposer';
-import IUser, { IUserGender } from '@Interfaces/IUser';
 import SHabbo from '@SHabbo';
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, OneToMany } from 'typeorm';
+import Room from '../rooms/Room';
+import RoomItem from '../rooms/RoomItem';
 
-@Entity('users')
+@Entity()
 class User {
     @PrimaryGeneratedColumn()
     id: number;
@@ -11,8 +12,8 @@ class User {
     @Column({ unique: true })
     username: string;
 
-    @Column('enum', { default: IUserGender.Male, enum: Object.values(IUserGender) })
-    gender: IUserGender;
+    @Column('enum', { default: 'M', enum: ['M', 'F'] })
+    gender: 'M' | 'F';
 
     @Column({ default: 'hd-180-1.hr-100-61.ch-210-66.lg-280-110.sh-305-62' })
     look: string;
@@ -29,6 +30,16 @@ class User {
     @Column({ default: 10 })
     diamonds: number;
 
+    @OneToOne(() => Room, (room) => room.id, { nullable: true })
+    @JoinColumn({ name: 'last_room' })
+    last_room: Room | null;
+
+    @OneToMany(() => Room, (room) => room.id)
+    rooms: Room[];
+
+    @OneToMany(() => RoomItem, (room_item) => room_item.id)
+    items: RoomItem[];
+
     async sendPacket(packet: PacketComposer): Promise<boolean> {
         const connection = SHabbo.getServer().getCommunication().getConnection(this.id);
 
@@ -43,17 +54,14 @@ class User {
         await SHabbo.getDatabase().getUsers().save(this);
     }
 
-    toArray(): IUser {
+    toInterface(): IUser {
         return {
-            id: this.id,
-            username: this.username,
-            gender: this.gender,
-            look: this.look,
-            motto: this.motto,
-            online: this.online,
-            credits: this.credits,
-            diamonds: this.diamonds,
-        }
+            ...this,
+            last_room: this.last_room ? this.last_room.toInterface() : null,
+
+            rooms: this.rooms.map((room) => room.toInterface()),
+            items: this.items.map((item) => item.toInterface()),
+        };
     }
 }
 

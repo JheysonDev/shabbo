@@ -8,22 +8,28 @@ import UserInfoComposer from "./UserInfoComposer";
 
 class ConnectComposer extends PacketComposer {
     constructor(private user: User, private connection: Connection) {
-        super('connect');
+        super('new_connection');
     }
 
     async execute(): Promise<void> {
         this.connection.handleEvents();
 
-        this.user.online = true;
-        await this.user.save();
+        try {
+            this.user.online = true;
+            await this.user.save();
 
-        await this.user.sendPacket(new PingComposer(1));
+            await this.user.sendPacket(new PingComposer(1));
 
-        await this.user.sendPacket(new UserAvatarComposer(this.user));
-        await this.user.sendPacket(new UserCurrencyComposer(this.user));
-        await this.user.sendPacket(new UserInfoComposer(this.user));
+            await this.user.sendPacket(new UserAvatarComposer(this.user));
+            await this.user.sendPacket(new UserCurrencyComposer(this.user));
+            await this.user.sendPacket(new UserInfoComposer(this.user));
 
-        console.log(`${this.user.username} is connected!`);
+            console.log(`${this.user.username} is connected!`);
+
+            this.writeBoolean(true);
+        } catch (e) {
+            this.writeBoolean(false);
+        }
     }
 }
 

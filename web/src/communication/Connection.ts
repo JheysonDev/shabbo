@@ -18,9 +18,7 @@ class Connection {
     private handleEvents(): void {
         if (this.events.getEvents().size) {
             for (let [name, packet] of Array.from(this.events.getEvents().entries())) {
-                this.socket.on(name, async (data: any) => {
-                    await packet.execute(this, new Packet(data));
-                });
+                this.socket.on(name, async (data: string) => await packet.execute(this, new Packet(data)));
             }
         }
     }
@@ -33,6 +31,7 @@ class Connection {
 
             return true;
         } catch(e) {
+            console.log('Send Packet Error', e);
             return false;
         }
     }

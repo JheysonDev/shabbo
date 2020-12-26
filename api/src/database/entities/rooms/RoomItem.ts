@@ -1,23 +1,20 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import Room from "./Room";
 import User from "../users/User";
 import Item from "../items/Item";
 
-@Entity('room_items')
+@Entity()
 class RoomItem {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @OneToOne(() => Room, { nullable: true })
-    @JoinColumn({ name: 'room_id' })
+    @ManyToOne(() => Room, (room) => room.id, { nullable: true })
     room: Room | null;
 
-    @OneToOne(() => User)
-    @JoinColumn({ name: 'owner_id' })
+    @ManyToOne(() => User, (user) => user.id)
     owner: User;
 
-    @OneToOne(() => Item)
-    @JoinColumn({ name: 'item_id'})
+    @ManyToOne(() => Item, (item) => item.id)
     item: Item;
 
     @Column({ default: 0 })
@@ -31,6 +28,15 @@ class RoomItem {
 
     @Column({ default: 0 })
     rotation: number;
+
+    toInterface(): IRoomItem {
+        return {
+            ...this,
+            room: this.room ? this.room.toInterface() : null,
+            owner: this.owner.toInterface(),
+            item: this.item.toInterface(),
+        };
+    }
 }
 
 export default RoomItem;

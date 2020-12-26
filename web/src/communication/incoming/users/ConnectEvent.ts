@@ -5,8 +5,8 @@ import Packet from "../Packet";
 import PacketEvent from "../PacketEvent";
 
 class ConnectEvent implements PacketEvent {
-    async execute(_connection: Connection, _packet: Packet): Promise<void> {
-        clientStore.dispatch(setConnected(true));
+    async execute(_connection: Connection, packet: Packet): Promise<void> {
+        clientStore.dispatch(setConnected(await packet.readBoolean()));
     }
 }
 

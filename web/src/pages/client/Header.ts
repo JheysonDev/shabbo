@@ -13,29 +13,27 @@ function Header(gameApplication: Application) {
     currenciesBox.y = 4;
     currenciesBox.zIndex = 100;
 
-    const { user } = (clientStore.getState() as IClientStates).user;
-    const { currency } = user;
+    const { data } = (clientStore.getState() as IClientStates).user;
 
-    if (currency) {
-        const creditsBox = new CurrencyContainer(gameApplication, 'Credits', CreditIcon, currency.credits);
+    if (data) {
+        const creditsBox = new CurrencyContainer(gameApplication, 'Credits', CreditIcon, data.credits);
         currenciesBox.addChild(creditsBox);
 
         creditsBox.x = 8;
         creditsBox.y = 4;
 
-        const diamondsBox = new CurrencyContainer(gameApplication, 'Diamonds', DiamondIcon, currency.diamonds);
+        const diamondsBox = new CurrencyContainer(gameApplication, 'Diamonds', DiamondIcon, data.diamonds);
         currenciesBox.addChild(diamondsBox);
 
         diamondsBox.x = creditsBox.x + creditsBox.width + 16;
         diamondsBox.y = 4;
 
         clientStore.subscribe(() => {
-            const { user } = (clientStore.getState() as IClientStates).user;
-            const { currency } = user;
+            const { data } = (clientStore.getState() as IClientStates).user;
 
-            if (currency) {
-                creditsBox.changeAmount(currency.credits);
-                diamondsBox.changeAmount(currency.diamonds);
+            if (data) {
+                creditsBox.changeAmount(data.credits);
+                diamondsBox.changeAmount(data.diamonds);
             }
         });
     }

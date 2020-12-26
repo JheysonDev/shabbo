@@ -16,7 +16,6 @@
   "_moduleAliases": {
     "@Communication": "./build/communication/",
     "@Database": "./build/database/",
-    "@Interfaces": "./build/interfaces/",
     "@Server": "./build/server/",
     "@SHabbo": "./build/SHabbo.js"
   },

@@ -42,12 +42,12 @@ function ClientPage({ userID }: { userID: number }) {
             if (state.user.current_room === 0 && !viewStates.hotel_view) {
                 viewStates.hotel_view = true;
                 HotelView(gameApplication);
-            } else if (state.user.user.currency && !viewStates.header) {
+            } else if (state.user.data && !viewStates.header) {
                 viewStates.header = true;
                 Header(gameApplication);
             } else if (!viewStates.navigation) {
                 viewStates.navigation = true;
-                Navigation(gameApplication);
+                Navigation(gameApplication, connection);
             }
         }
     });

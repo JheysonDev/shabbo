@@ -1,4 +1,3 @@
-import IUser from '@Interfaces/IUser';
 import SHabbo from '@SHabbo';
 import Controller from './Controller';
 
@@ -16,7 +15,7 @@ class UsersController extends Controller {
                 return;
             }
 
-            res.status(200).jsonp(user.toArray());
+            res.status(200).jsonp(user.toInterface());
         });
 
         this.getRouter().get('/username/:username', async (req, res) => {
@@ -29,7 +28,7 @@ class UsersController extends Controller {
                 return;
             }
 
-            res.status(200).jsonp(user.toArray());
+            res.status(200).jsonp(user.toInterface());
         });
 
         this.getRouter().post('/signup', async (req, res) => {

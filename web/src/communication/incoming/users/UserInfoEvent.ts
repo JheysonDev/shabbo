@@ -1,4 +1,4 @@
-import { setUserInfo } from "../../../data/actions/client/userActions";
+import { setUserData } from "../../../data/actions/client/userActions";
 import clientStore from "../../../data/stores/clientStore";
 import Connection from "../../Connection";
 import Packet from "../Packet";
@@ -9,7 +9,7 @@ class UserInfoEvent implements PacketEvent {
         const userID = await packet.readInteger();
         const username = await packet.readString();
 
-        clientStore.dispatch(setUserInfo({ id: userID, username }));
+        clientStore.dispatch(setUserData({ id: userID, username }));
     }
 }
 

@@ -1,6 +1,6 @@
 import Connection from "@Communication/Connection";
 import SHabbo from "@SHabbo";
-import Packet from "../packet";
+import Packet from "../Packet";
 import PacketEvent from "../PacketEvent";
 
 class DisconnectEvent implements PacketEvent {

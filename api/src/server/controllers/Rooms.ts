@@ -1,4 +1,3 @@
-import IRoomModel from '@Interfaces/IRoomModel';
 import SHabbo from '@SHabbo';
 import Controller from './Controller';
 
@@ -18,7 +17,7 @@ class RoomsController extends Controller {
 
             await newRoomModel.save();
 
-            res.status(200).jsonp({ room_model: newRoomModel.toArray() });
+            res.status(200).jsonp({ room_model: newRoomModel.toInterface() });
         });
     }
 }

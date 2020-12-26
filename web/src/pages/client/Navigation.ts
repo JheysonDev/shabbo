@@ -1,9 +1,11 @@
 import IconButton from "../../components/client/IconButton";
 import { Application } from "pixi.js";
 import CreateRoomIcon from "../../assets/images/icons/create_room.png";
-import HabboWindow from "../../components/client/HabboWindow";
+import CreateRoomWindow from "../../components/client/CreateRoomWindow";
+import Connection from "../../communication/Connection";
+import OpenCreateRoomComposer from "../../communication/outgoing/navigator/OpenCreateRoomComposer";
 
-function Navigation(gameApplication: Application) {
+function Navigation(gameApplication: Application, connection: Connection) {
     const createRoomButton = new IconButton(
         'background',
         gameApplication,
@@ -26,25 +28,20 @@ function Navigation(gameApplication: Application) {
         createRoomButton.y -= radius * 2;
     });
 
-    let createRoomWindow: HabboWindow | null = null;
+    let createRoomWindow: CreateRoomWindow | null = null;
 
-    createRoomButton.onClick(() => {
+    createRoomButton.onClick(async () => {
         if (createRoomWindow) {
             gameApplication.stage.removeChild(createRoomWindow);
             createRoomWindow = null;
         } else {
-            createRoomWindow = new HabboWindow('Create a room');
+            await connection.sendPacket(new OpenCreateRoomComposer());
+
+            createRoomWindow = new CreateRoomWindow();
             gameApplication.stage.addChild(createRoomWindow);
 
             createRoomWindow.x = 35;
             createRoomWindow.y = 35;
-
-            createRoomWindow.onClose(() => {
-                if (createRoomWindow) {
-                    gameApplication.stage.removeChild(createRoomWindow);
-                    createRoomWindow = null;
-                }
-            });
         }
     });
 }

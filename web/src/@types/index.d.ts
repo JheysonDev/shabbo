@@ -1,1 +1,1 @@
-import './interfaces';
+import './client';

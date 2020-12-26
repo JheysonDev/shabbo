@@ -1,6 +1,6 @@
 import Connection from "@Communication/Connection";
 import PingComposer from "@Communication/outgoing/handshake/PingComposer";
-import Packet from "../packet";
+import Packet from "../Packet";
 import PacketEvent from "../PacketEvent";
 
 class PongEvent implements PacketEvent {

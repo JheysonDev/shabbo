@@ -1,5 +1,15 @@
 # Unreleased
 
+## 26/12/2020
+- (@danielsolartech) (Web) Add input component.
+- (@danielsolartech) (Web) Add sounds (Call for help, camera shutter and credits).
+
+## 25/12/2020
+- (@danielsolartech) (Web) Add create room window and room models images.
+- (@danielsolartech) (Api) Add navigator rooms packets.
+- (@danielsolartech) (Api) Add `@types` directory.
+- (@danielsolartech) (Api) Change database entities structure.
+
 ## 23/12/2020
 - (@danielsolartech) (Web) Add hotel view, create room window and currency stats.
 - (@danielsolartech) (Web) Change to JS vanilla.

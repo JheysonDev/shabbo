@@ -19,52 +19,53 @@ class HabboWindow extends Container {
     }
 
     private _buildBox() {
-        const boxTitle = new Graphics().lineStyle(2, 0x000000).beginFill(0x3F51B5).drawRect(0, 0, 350, 30).endFill();
+        const boxTitle = new Graphics().lineStyle(2, 0x000000).beginFill(0x3F51B5).drawRect(0, 0, 350, 35).endFill();
         this.addChild(boxTitle);
 
-        const boxClose = new Graphics().lineStyle(1, 0x000000).beginFill(0xF44336).drawRoundedRect(0, 0, 15, 15, 2).endFill();
+        const titleStyle = new TextStyle({
+            fill: ['#FFFFFF'],
+            fontSize: 13.5,
+            fontWeight: 'bold',
+            letterSpacing: 0.75,
+        });
+
+        const titleText = new Text(this.title, titleStyle);
+        boxTitle.addChild(titleText);
+
+        titleText.x = boxTitle.width / 2 - titleText.width / 2;
+        titleText.y = boxTitle.height / 2 - titleText.height / 2;
+
+        const boxClose = new Graphics().lineStyle(1, 0x000000).beginFill(0xF44336).drawRoundedRect(0, 0, 18, 18, 2).endFill();
         boxTitle.addChild(boxClose);
 
-        boxClose.x = boxTitle.width - boxClose.width - 8;
+        boxClose.x = boxTitle.width - boxClose.width - 12;
         boxClose.y = boxTitle.height / 2 - boxClose.height / 2;
 
-        const closeText = new Text('x', new TextStyle({ fontSize: 10, fontWeight: 'bold', fill: ['#FFFFFF'] }));
+        const closeText = new Text('x', new TextStyle({ fill: ['#FFFFFF'], fontSize: 12, fontWeight: 'bold' }));
         boxClose.addChild(closeText);
 
         boxClose.zIndex = 10;
         boxClose.interactive = true;
+        boxClose.buttonMode = true;
         boxClose.hitArea = new Rectangle(0, 0, boxClose.width, boxClose.height);
         boxClose.on('click', () => this.close.next());
 
-        closeText.x = (boxClose.width - closeText.width) / 2.5;
+        closeText.x = boxClose.width / 2 - closeText.width / 2 - 1;
+        closeText.y = boxClose.height / 2 - closeText.height / 2 - 2;
 
         boxTitle.interactive = true;
-        boxTitle.buttonMode = true;
 
         boxTitle
             .on('pointerdown', (e: any) => this._onDragStart(e)).on('pointerup', () => this._onDragEnd())
             .on('pointerupoutside', () => this._onDragEnd()).on('pointermove', () => this._onDragMove());
 
-        const boxContent = new Graphics().lineStyle(2, 0x000000).beginFill(0xFFFFFF).drawRect(0, 30, 350, 300).endFill();
+        const boxContent = new Graphics().lineStyle(2, 0x000000).beginFill(0xFFFFFF).drawRect(0, 35, 350, 300).endFill();
         this.addChild(boxContent);
 
-        const mask = new Graphics().beginFill(0x000000).drawRoundedRect(0, 0, 350, 330, 4).endFill();
+        const mask = new Graphics().beginFill(0x000000).drawRoundedRect(0, 0, 350, 335, 4).endFill();
         this.addChild(mask);
 
         this.mask = mask;
-
-        const titleStyle = new TextStyle({
-            fill: ['#FFFFFF'],
-            fontSize: 12,
-            fontWeight: 'medium',
-            letterSpacing: 0.75,
-        });
-
-        const title = new Text(this.title, titleStyle);
-        boxTitle.addChild(title);
-
-        title.x = boxTitle.width / 2 - title.width / 2;
-        title.y = boxTitle.height / 2 - title.height / 2;
     }
 
     private _onDragStart(e: any) {

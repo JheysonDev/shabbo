@@ -39,6 +39,7 @@ class Connection {
 
             return true;
         } catch (e) {
+            console.log('Send Packet Error', e);
             return false;
         }
     }

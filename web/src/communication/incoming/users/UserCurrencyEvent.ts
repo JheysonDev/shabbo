@@ -1,4 +1,4 @@
-import { setUserCurrency } from "../../../data/actions/client/userActions";
+import { setUserData } from "../../../data/actions/client/userActions";
 import clientStore from "../../../data/stores/clientStore";
 import Connection from "../../Connection";
 import Packet from "../Packet";
@@ -9,7 +9,7 @@ class UserCurrencyEvent implements PacketEvent {
         const credits = await packet.readInteger();
         const diamonds = await packet.readInteger();
 
-        clientStore.dispatch(setUserCurrency({ credits, diamonds }));
+        clientStore.dispatch(setUserData({ credits, diamonds }));
     }
 }
 

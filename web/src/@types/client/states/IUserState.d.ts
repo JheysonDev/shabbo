@@ -1,6 +1,6 @@
 interface IUserState {
-    connected: boolean;
-    user: IUser;
+    data: IUser | null;
 
+    connected: boolean;
     current_room: number;
 }

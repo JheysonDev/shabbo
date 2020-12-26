@@ -1,6 +1,7 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import CatalogItem from "./CatalogItem";
 
-@Entity('catalog_pages')
+@Entity()
 class CatalogPage {
     @PrimaryGeneratedColumn()
     id: number;
@@ -8,12 +9,27 @@ class CatalogPage {
     @Column()
     name: string;
 
-    @OneToOne(() => CatalogPage, { nullable: true })
-    @JoinColumn({ name: 'parent_id' })
+    @ManyToOne(() => CatalogPage, (catalog_page) => catalog_page.id, { nullable: true })
     parent: CatalogPage | null;
 
     @Column({ default: 1 })
     order: number;
+
+    @OneToMany(() => CatalogPage, (catalog_page) => catalog_page.id)
+    children: CatalogPage[];
+
+    @OneToMany(() => CatalogItem, (catalog_item) => catalog_item.id)
+    catalog_items: CatalogItem[];
+
+    toInterface(): ICatalogPage {
+        return {
+            ...this,
+            parent: this.parent.toInterface(),
+
+            children: this.children.map((child) => child.toInterface()),
+            catalog_items: this.catalog_items.map((catalog_item) => catalog_item.toInterface()),
+        };
+    }
 }
 
 export default CatalogPage;

@@ -7,29 +7,11 @@ export function setConnected(connected: boolean): Action<boolean> {
     }
 }
 
-export const SET_USER_INFO = 'SET_USER_INFO';
+export const SET_USER_DATA = 'SET_USER_DATA';
 
-export function setUserInfo(userInfo: IUserInfo): Action<IUserInfo> {
+export function setUserData(data: Partial<IUser>): Action<Partial<IUser>> {
     return {
-        type: SET_USER_INFO,
-        payload: userInfo,
-    };
-}
-
-export const SET_USER_CURRENCY = 'SET_USER_CURRENCY';
-
-export function setUserCurrency(userCurrency: IUserCurrency): Action<IUserCurrency> {
-    return {
-        type: SET_USER_CURRENCY,
-        payload: userCurrency,
-    };
-}
-
-export const SET_USER_AVATAR = 'SET_USER_AVATAR';
-
-export function setUserAvatar(userAvatar: IUserAvatar): Action<IUserAvatar> {
-    return {
-        type: SET_USER_AVATAR,
-        payload: userAvatar,
+        type: SET_USER_DATA,
+        payload: data,
     };
 }

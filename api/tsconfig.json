@@ -11,10 +11,13 @@
         "paths": {
             "@Communication/*": ["communication/*"],
             "@Database/*": ["database/*"],
-            "@Interfaces/*": ["interfaces/*"],
             "@Server/*": ["server/*"],
             "@SHabbo": ["SHabbo.ts"],
         },
+        "typeRoots": [
+            "./node_modules/@types",
+            "./src/@types",
+        ],
     },
     "exclude": [
         "./node_modules/",

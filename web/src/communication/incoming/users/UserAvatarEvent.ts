@@ -1,4 +1,4 @@
-import { setUserAvatar } from "../../../data/actions/client/userActions";
+import { setUserData } from "../../../data/actions/client/userActions";
 import clientStore from "../../../data/stores/clientStore";
 import Connection from "../../Connection";
 import Packet from "../Packet";
@@ -10,7 +10,7 @@ class UserAvatarEvent implements PacketEvent {
         const gender = await packet.readString();
         const motto = await packet.readString();
 
-        clientStore.dispatch(setUserAvatar({
+        clientStore.dispatch(setUserData({
             look,
             gender: gender === 'M' ? 'M' : 'F',
             motto

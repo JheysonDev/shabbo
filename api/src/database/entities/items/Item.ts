@@ -1,6 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import CatalogItem from '../catalogue/CatalogItem';
+import Room from '../rooms/Room';
 
-@Entity('items')
+@Entity()
 class Item {
     @PrimaryGeneratedColumn()
     id: number;
@@ -28,6 +30,20 @@ class Item {
 
     @Column({ default: 1 })
     interaction_count: number;
+
+    @OneToMany(() => CatalogItem, (catalog_item) => catalog_item.id)
+    catalog_items: CatalogItem[];
+
+    @OneToMany(() => Room, (room) => room.id)
+    rooms: Room[];
+
+    toInterface(): IItem {
+        return {
+            ...this,
+            catalog_items: this.catalog_items.map((catalog_item) => catalog_item.toInterface()),
+            rooms: this.rooms.map((room) => room.toInterface()),
+        };
+    }
 }
 
 export default Item;

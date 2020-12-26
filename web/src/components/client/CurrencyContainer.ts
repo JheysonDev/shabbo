@@ -1,6 +1,5 @@
 import { Application, Sprite, Text, TextStyle } from "pixi.js";
 import HoverContainer from "./HoverContainer";
-
 class CurrencyContainer extends HoverContainer {
     private text: Text;
 
@@ -35,6 +34,7 @@ class CurrencyContainer extends HoverContainer {
 
     changeAmount(amount: number) {
         this.text.text = amount.toString();
+        this.text.x = 83 - this.text.width;
     }
 }
 

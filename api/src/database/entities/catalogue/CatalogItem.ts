@@ -1,18 +1,16 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import Item from "../items/Item";
 import CatalogPage from "./CatalogPage";
 
-@Entity('catalog_items')
+@Entity()
 class CatalogItem {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @OneToOne(() => CatalogPage)
-    @JoinColumn({ name: 'page_id' })
+    @ManyToOne(() => CatalogPage, (catalog_page) => catalog_page.id)
     page: CatalogPage;
 
-    @OneToOne(() => Item)
-    @JoinColumn({ name: 'item_id' })
+    @ManyToOne(() => Item, (item) => item.id)
     item: Item;
 
     @Column({ default: 1 })
@@ -23,6 +21,14 @@ class CatalogItem {
 
     @Column({ default: 0 })
     cost_diamonds: number;
+
+    toInterface(): ICatalogItem {
+        return {
+            ...this,
+            page: this.page.toInterface(),
+            item: this.item.toInterface(),
+        };
+    }
 }
 
 export default CatalogItem;
