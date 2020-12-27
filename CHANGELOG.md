@@ -1,5 +1,9 @@
 # Unreleased
 
+## 27/12/2020
+- (@danielsolartech) (Web) Add max length and selector line to input component.
+- (@danielsolartech) (Web) Update `@jankuss/shroom` dependency to 0.2.0.
+
 ## 26/12/2020
 - (@danielsolartech) (Web) Add input component.
 - (@danielsolartech) (Web) Add sounds (Call for help, camera shutter and credits).

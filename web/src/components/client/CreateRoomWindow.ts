@@ -184,7 +184,8 @@ class CreateRoomWindow extends Container {
         const input = new Input(
             'Room name',
             {
-                width: this.generalBox.width - 24
+                width: this.generalBox.width - 24,
+                max_length: 22,
             }
         );
 
