@@ -8,10 +8,10 @@ class RoomModel {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ default: '00\n00' })
+    @Column({ type: 'longtext' })
     floor: string;
 
-    @Column({ default: '0;0;0' })
+    @Column({ default: '0;0;0;2' })
     door: string;
 
     @OneToMany(() => Room, (room) => room.id)
@@ -24,16 +24,15 @@ class RoomModel {
         await SHabbo.getDatabase().getRoomModels().save(this);
     }
 
-    toInterface(): IRoomModel {
-        const [doorX, doorY, doorZ] = this.door.split(';').map(Number);
+    getDoorPoint(): Point {
+        const [x, y, z, rotation] = this.door.split(';').map(Number);
+        return { x, y, z, rotation };
+    }
 
+    toInterface(): IRoomModel {
         return {
             ...this,
-            door: {
-                x: doorX,
-                y: doorY,
-                z: doorZ,
-            },
+            door: this.getDoorPoint(),
 
             rooms: this.rooms.map((room) => room.toInterface()),
             navigator_rooms: this.navigator_rooms.map((navigator_room) => navigator_room.toInterface()),

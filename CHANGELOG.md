@@ -1,6 +1,9 @@
 # Unreleased
 
 ## 27/12/2020
+- (@danielsolartech) Add pathfinding and users movements.
+- (@danielsolartech) Add HabboHotel rooms packets and classes.
+- (@danielsolartech) (Web) Remove `redux`.
 - (@danielsolartech) (Web) Add max length and selector line to input component.
 - (@danielsolartech) (Web) Update `@jankuss/shroom` dependency to 0.2.0.
 

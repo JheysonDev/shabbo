@@ -3,8 +3,8 @@ import LoginPage from './pages/Login';
 import { Observable } from 'rxjs';
 import './Index.scss';
 
-const userID: number = Number(localStorage.getItem('user_id') || '0');
-const isLogged = userID > 0;
+const user_id: number = Number(localStorage.getItem('user_id') || '0');
+const isLogged = user_id > 0;
 
 switch (document.location.pathname.toLowerCase()) {
     case '/client': {
@@ -13,7 +13,7 @@ switch (document.location.pathname.toLowerCase()) {
             break;
         }
 
-        ClientPage({ userID });
+        ClientPage();
         break;
     }
 

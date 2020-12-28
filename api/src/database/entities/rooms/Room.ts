@@ -24,6 +24,9 @@ class Room {
     @OneToMany(() => RoomItem, (room_item) => room_item.id)
     items: RoomItem[];
 
+    @OneToMany(() => User, (user) => user.id)
+    last_users: User[];
+
     toInterface(): IRoom {
         return {
             ...this,

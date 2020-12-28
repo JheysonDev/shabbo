@@ -1,7 +1,7 @@
 interface IRoomModel {
     id: number;
     floor: string;
-    door: { x: number, y: number, z: number };
+    door: Point;
 
     rooms: IRoom[];
     navigator_rooms: INavigatorRoom[];

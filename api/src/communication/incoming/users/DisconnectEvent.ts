@@ -11,6 +11,10 @@ class DisconnectEvent implements PacketEvent {
             return;
         }
 
+        if (user.getHabbo().inRoom()) {
+            await user.getHabbo().getCurrentRoom().getUsersManager().removeHabbo(user.getHabbo());
+        }
+
         if (SHabbo.getServer().getCommunication().removeConnection(connection)) {
             user.online = false;
             await user.save();

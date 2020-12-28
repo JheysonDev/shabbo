@@ -1,5 +1,4 @@
-import { setUserData } from "../../../data/actions/client/userActions";
-import clientStore from "../../../data/stores/clientStore";
+import HotelManager from "../../../HabboHotel/HotelManager";
 import Connection from "../../Connection";
 import Packet from "../Packet";
 import PacketEvent from "../PacketEvent";
@@ -9,7 +8,7 @@ class UserCurrencyEvent implements PacketEvent {
         const credits = await packet.readInteger();
         const diamonds = await packet.readInteger();
 
-        clientStore.dispatch(setUserData({ credits, diamonds }));
+        HotelManager.getUserManager().setData({ credits, diamonds });
     }
 }
 

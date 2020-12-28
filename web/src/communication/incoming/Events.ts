@@ -6,6 +6,12 @@ import PingEvent from "./handshake/PingEvent";
 // Navigator
 import NavigatorRoomModelsEvent from "./navigator/NavigatorRoomModelsEvent";
 
+// Rooms
+import RoomReadyEvent from "./rooms/RoomReadyEvent";
+import RoomUsersEvent from "./rooms/users/RoomUsersEvent";
+import UserMoveEvent from "./rooms/users/UserMoveEvent";
+import UserRemoveEvent from "./rooms/users/UserRemoveEvent";
+
 // Users
 import ConnectEvent from "./users/ConnectEvent";
 import UserAvatarEvent from "./users/UserAvatarEvent";
@@ -18,17 +24,33 @@ class Events {
     constructor() {
         this.events = new Map();
 
-        this.registerEvents();
+        this._registerEvents();
     }
 
-    private registerEvents() {
-        // Handshake
+    private _registerEvents() {
+        this._registerHandshake();
+        this._registerNavigator();
+        this._registerRooms();
+        this._registerUsers();
+    }
+
+    private _registerHandshake() {
         this.addEvent('ping', new PingEvent());
+    }
 
-        // Navigator
+    private _registerNavigator() {
         this.addEvent('navigator_room_models', new NavigatorRoomModelsEvent());
+    }
 
-        // Users
+    private _registerRooms() {
+        this.addEvent('room_ready', new RoomReadyEvent());
+
+        this.addEvent('room_users', new RoomUsersEvent());
+        this.addEvent('user_move', new UserMoveEvent());
+        this.addEvent('user_remove', new UserRemoveEvent());
+    }
+
+    private _registerUsers() {
         this.addEvent('new_connection', new ConnectEvent());
         this.addEvent('user_avatar', new UserAvatarEvent());
         this.addEvent('user_currency', new UserCurrencyEvent());

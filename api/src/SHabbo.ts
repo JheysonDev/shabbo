@@ -1,9 +1,12 @@
+import HotelManager from '@HabboHotel/HotelManager';
 import Database from '@Database/Database';
 import Server from '@Server/Server';
 
 class SHabbo {
     private static database: Database;
     private static server: Server;
+
+    private static hotel: HotelManager;
 
     public static getDatabase(): Database {
         if (this.database == null) {
@@ -21,7 +24,15 @@ class SHabbo {
         return this.server;
     }
 
-    public async run(): Promise<void> {
+    public static getHotel(): HotelManager {
+        if (this.hotel == null) {
+            this.hotel = new HotelManager();
+        }
+
+        return this.hotel;
+    }
+
+    async run(): Promise<void> {
         if (process.env.NODE_ENV !== 'production') {
             const dotenv = await import('dotenv');
             dotenv.config();
@@ -35,6 +46,10 @@ class SHabbo {
 
         // Listen Server.
         SHabbo.getServer().listen();
+    }
+
+    static sleep(miliseconds: number): Promise<void> {
+        return new Promise((resolve) => setTimeout(resolve, miliseconds));
     }
 }
 

@@ -18,11 +18,15 @@ class ConnectComposer extends PacketComposer {
             this.user.online = true;
             await this.user.save();
 
-            await this.user.sendPacket(new PingComposer(1));
+            await this.user.getHabbo().sendPacket(new PingComposer(1));
 
-            await this.user.sendPacket(new UserAvatarComposer(this.user));
-            await this.user.sendPacket(new UserCurrencyComposer(this.user));
-            await this.user.sendPacket(new UserInfoComposer(this.user));
+            await this.user.getHabbo().sendPacket(new UserAvatarComposer(this.user));
+            await this.user.getHabbo().sendPacket(new UserCurrencyComposer(this.user));
+            await this.user.getHabbo().sendPacket(new UserInfoComposer(this.user));
+
+            if (this.user.last_room) {
+                this.user.getHabbo().goToRoom(this.user.last_room.id);
+            }
 
             console.log(`${this.user.username} is connected!`);
 

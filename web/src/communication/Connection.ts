@@ -1,3 +1,4 @@
+import HotelManager from '../HabboHotel/HotelManager';
 import SocketIO from 'socket.io-client';
 import { API_URL } from '../utils/variables';
 import Events from './incoming/Events';
@@ -8,8 +9,8 @@ class Connection {
     private socket: SocketIO.Socket;
     private events: Events;
 
-    constructor(private userID: number) {
-        this.socket = SocketIO.io(`${API_URL}/?user_id=${this.userID}`);
+    constructor() {
+        this.socket = SocketIO.io(`${API_URL}/?user_id=${HotelManager.user_id}`);
         this.events = new Events();
 
         this.handleEvents();

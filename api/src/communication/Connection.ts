@@ -19,8 +19,14 @@ class Connection {
         return this.userID;
     }
 
+    private _user: User = null;
+
     async getUser(): Promise<User> {
-        return await SHabbo.getDatabase().getUsers().findOne(this.getUserID());
+        if (!this._user) {
+            this._user = await SHabbo.getDatabase().getUsers().findOne(this.getUserID(), { relations: ['last_room'] });
+        }
+
+        return this._user;
     }
 
     handleEvents(): void {

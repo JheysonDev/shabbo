@@ -9,6 +9,7 @@
         "rootDir": "./src/",
         "baseUrl": "./src/",
         "paths": {
+            "@HabboHotel/*": ["HabboHotel/*"],
             "@Communication/*": ["communication/*"],
             "@Database/*": ["database/*"],
             "@Server/*": ["server/*"],

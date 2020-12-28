@@ -13,3 +13,6 @@ import './users/IUser';
 
 // Utils
 import './utils/ObjectColor';
+
+// Others
+import './IComponent';

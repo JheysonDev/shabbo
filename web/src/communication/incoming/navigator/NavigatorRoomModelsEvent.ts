@@ -1,12 +1,10 @@
 import Connection from "communication/Connection";
-import clientStore from "../../../data/stores/clientStore";
-import { setNavigatorRooms } from "../../../data/actions/client/mainActions";
 import Packet from "../Packet";
 import PacketEvent from "../PacketEvent";
 
 class NavigatorRoomModelsEvent implements PacketEvent {
     async execute(connection: Connection, packet: Packet): Promise<void> {
-        clientStore.dispatch(setNavigatorRooms([]));
+        //clientStore.dispatch(setNavigatorRooms([]));
 
         const size = await packet.readInteger();
 
@@ -21,7 +19,7 @@ class NavigatorRoomModelsEvent implements PacketEvent {
                 navigator_rooms.push({ id, name, cost_credits });
             }
 
-            clientStore.dispatch(setNavigatorRooms(navigator_rooms));
+            //clientStore.dispatch(setNavigatorRooms(navigator_rooms));
         }
     }
 }

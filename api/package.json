@@ -14,6 +14,7 @@
   "author": "Daniel Solarte Chaverra",
   "license": "MIT",
   "_moduleAliases": {
+    "@HabboHotel": "./build/HabboHotel/",
     "@Communication": "./build/communication/",
     "@Database": "./build/database/",
     "@Server": "./build/server/",

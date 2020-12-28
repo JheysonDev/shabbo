@@ -1,5 +1,4 @@
-import { setUserData } from "../../../data/actions/client/userActions";
-import clientStore from "../../../data/stores/clientStore";
+import HotelManager from "../../../HabboHotel/HotelManager";
 import Connection from "../../Connection";
 import Packet from "../Packet";
 import PacketEvent from "../PacketEvent";
@@ -9,7 +8,7 @@ class UserInfoEvent implements PacketEvent {
         const userID = await packet.readInteger();
         const username = await packet.readString();
 
-        clientStore.dispatch(setUserData({ id: userID, username }));
+        HotelManager.getUserManager().setData({ id: userID, username });
     }
 }
 

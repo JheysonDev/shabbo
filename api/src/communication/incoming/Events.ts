@@ -6,6 +6,10 @@ import PongEvent from "./handshake/PongEvent";
 // Navigator
 import OpenCreateRoomEvent from "./navigator/OpenCreateRoomEvent";
 
+// Rooms
+import MoveToEvent from "./rooms/users/MoveToEvent";
+import GoToRoomEvent from "./rooms/GoToRoomEvent";
+
 // Users
 import DisconnectEvent from "./users/DisconnectEvent";
 
@@ -15,17 +19,31 @@ class Events {
     constructor() {
         this.events = new Map();
 
-        this.registerEvents();
+        this._registerEvents();
     }
 
-    private registerEvents(): void {
-        // Handshake
+    private _registerEvents(): void {
+        this._registerHandshake();
+        this._registerNavigator();
+        this._registerRooms();
+        this._registerUsers();
+    }
+
+    private _registerHandshake() {
         this.addEvent('pong', new PongEvent());
+    }
 
-        // Navigator
+    private _registerNavigator() {
         this.addEvent('open_create_room', new OpenCreateRoomEvent());
+    }
 
-        // Users
+    private _registerRooms() {
+        this.addEvent('move_to', new MoveToEvent());
+
+        this.addEvent('go_to_room', new GoToRoomEvent());
+    }
+
+    private _registerUsers() {
         this.addEvent('disconnect', new DisconnectEvent());
     }
 

@@ -1,6 +1,6 @@
-import PacketComposer from '@Communication/outgoing/PacketComposer';
+import Habbo from '@HabboHotel/users/Habbo';
 import SHabbo from '@SHabbo';
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from 'typeorm';
 import Room from '../rooms/Room';
 import RoomItem from '../rooms/RoomItem';
 
@@ -30,8 +30,7 @@ class User {
     @Column({ default: 10 })
     diamonds: number;
 
-    @OneToOne(() => Room, (room) => room.id, { nullable: true })
-    @JoinColumn({ name: 'last_room' })
+    @ManyToOne(() => Room, (room) => room.id, { nullable: true })
     last_room: Room | null;
 
     @OneToMany(() => Room, (room) => room.id)
@@ -40,14 +39,14 @@ class User {
     @OneToMany(() => RoomItem, (room_item) => room_item.id)
     items: RoomItem[];
 
-    async sendPacket(packet: PacketComposer): Promise<boolean> {
-        const connection = SHabbo.getServer().getCommunication().getConnection(this.id);
+    private _habbo: Habbo | null = null;
 
-        if (!connection) {
-            throw new Error('No conenction for user.');
+    getHabbo(): Habbo {
+        if (!this._habbo) {
+            this._habbo = new Habbo(this);
         }
 
-        return await connection.sendPacket(packet);
+        return this._habbo;
     }
 
     async save(): Promise<void> {
