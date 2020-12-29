@@ -4,6 +4,7 @@ import { Application } from "pixi.js";
 import RoomManager from "./rooms/RoomManager";
 import UserManager from "./users/UserManager";
 import UIManager from "./ui/UIManager";
+import SettingsManager from "./settings/SettingsManager";
 
 class HotelManager {
     static user_id: number = Number(localStorage.getItem('user_id') || '0');
@@ -11,12 +12,19 @@ class HotelManager {
     private static connection: Connection;
     private static canvas: Application;
     private static game: Shroom;
+    private static settings: SettingsManager;
     private static ui: UIManager;
     private static room: RoomManager;
     private static user: UserManager;
 
     run() {
+        const main = HotelManager.getUIManager().getComponentsManager().getComponent('main');
+        if (main && !main.isActive()) {
+            main.setActive(main.build());
+        }
+
         HotelManager.getConnection();
+        HotelManager.getSettingsManager().run();
     }
 
     static getConnection(): Connection {
@@ -51,6 +59,14 @@ class HotelManager {
         }
 
         return this.game;
+    }
+
+    static getSettingsManager(): SettingsManager {
+        if (!this.settings) {
+            this.settings = new SettingsManager();
+        }
+
+        return this.settings;
     }
 
     static getUIManager(): UIManager {

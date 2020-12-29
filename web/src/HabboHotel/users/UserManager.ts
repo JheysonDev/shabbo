@@ -36,11 +36,11 @@ class UserManager {
     }
 
     setData(data: Partial<IUser>): void {
+        this.data = { ...this.data, ...data };
+
         if (data.credits || data.diamonds) {
             this.currency_event.next();
         }
-
-        this.data = { ...this.data, ...data };
     }
 
     onCurrencyChange(event: () => void): void {

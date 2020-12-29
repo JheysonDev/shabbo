@@ -7,6 +7,10 @@ class Setting {
 
     @Column()
     value: string;
+
+    toInterface(): ISetting {
+        return this;
+    }
 }
 
 export default Setting;

@@ -1,5 +1,11 @@
 # Unreleased
 
+## 26/12/2020
+- (@danielsolartech) (Web) Move room_models to external resources.
+- (@danielsolartech) (Api) Import default values when they are empty.
+- (@danielsolartech) Add settings packets.
+- (@danielsolartech) (Web) Add UI components.
+
 ## 27/12/2020
 - (@danielsolartech) Add pathfinding and users movements.
 - (@danielsolartech) Add HabboHotel rooms packets and classes.

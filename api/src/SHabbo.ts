@@ -44,6 +44,9 @@ class SHabbo {
         // Initialize the Server.
         await SHabbo.getServer().run();
 
+        // Initialize the Hotel.
+        await SHabbo.getHotel().run();
+
         // Listen Server.
         SHabbo.getServer().listen();
     }

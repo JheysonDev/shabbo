@@ -49,7 +49,7 @@ class RoomManager {
 
     generateRoom(): Room {
         if (this.camera) {
-            HotelManager.getCanvas().stage.removeChild(this.camera);
+            HotelManager.getUIManager().removeChildFromMain(this.camera);
         }
 
         this.room = Room.create(HotelManager.getGame(), {
@@ -64,8 +64,9 @@ class RoomManager {
         };
 
         this.camera = RoomCamera.forScreen(this.room);
-        HotelManager.getCanvas().stage.addChild(this.camera);
+        this.camera.zIndex = 0;
 
+        HotelManager.getUIManager().addChildToMain(this.camera);
         return this.room;
     }
 

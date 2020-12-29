@@ -1,18 +1,8 @@
 // Communication
 import './communication';
 
-// Redux
-import './redux/Action';
-import './redux/Reducer';
-
-// States
-import './states';
+// UI
+import './ui';
 
 // Users
 import './users/IUser';
-
-// Utils
-import './utils/ObjectColor';
-
-// Others
-import './IComponent';

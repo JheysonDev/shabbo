@@ -16,3 +16,6 @@ import './entities/rooms/IRoomModel';
 
 // Users
 import './entities/users/IUser';
+
+// Others
+import './entities/ISetting';

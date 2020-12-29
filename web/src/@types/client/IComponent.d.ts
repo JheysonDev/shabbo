@@ -1,3 +1,0 @@
-interface IComponent {
-    build(): void;
-}

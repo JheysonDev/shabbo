@@ -8,8 +8,8 @@ class ConnectEvent implements PacketEvent {
         HotelManager.getUserManager().setConnected(await packet.readBoolean());
 
         const header = HotelManager.getUIManager().getComponentsManager().getComponent('header');
-        if (header) {
-            header.build();
+        if (header && !header.isActive()) {
+            header.setActive(header.build());
         }
     }
 }

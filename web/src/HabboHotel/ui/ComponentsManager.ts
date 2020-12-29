@@ -1,7 +1,11 @@
-import Header from "./components/Header";
+import Component from "./components/Component";
+
+// General
+import Header from "./components/general/Header";
+import Main from "./components/general/Main";
 
 class ComponentsManager {
-    private components: Map<string, IComponent>;
+    private components: Map<string, Component>;
 
     constructor() {
         this.components = new Map();
@@ -10,10 +14,15 @@ class ComponentsManager {
     }
 
     private _registerComponents(): void {
-        this.addComponent('header', new Header());
+        this._registerGeneral();
     }
 
-    getComponent(name: string): IComponent | null {
+    private _registerGeneral(): void {
+        this.addComponent('header', new Header());
+        this.addComponent('main', new Main());
+    }
+
+    getComponent(name: string): Component | null {
         return this.components.get(name) || null;
     }
 
@@ -21,7 +30,7 @@ class ComponentsManager {
         return this.components.has(name);
     }
 
-    addComponent(name: string, component: IComponent): void {
+    addComponent(name: string, component: Component): void {
         if (this.hasComponent(name)) {
             return;
         }

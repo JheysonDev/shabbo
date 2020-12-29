@@ -15,6 +15,9 @@ class CatalogPage {
     @Column({ default: 1 })
     order: number;
 
+    @Column({ default: 1 })
+    icon: number;
+
     @OneToMany(() => CatalogPage, (catalog_page) => catalog_page.id)
     children: CatalogPage[];
 

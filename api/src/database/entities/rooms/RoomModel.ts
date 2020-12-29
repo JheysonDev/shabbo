@@ -20,8 +20,10 @@ class RoomModel {
     @OneToMany(() => NavigatorRoom, (navigator_room) => navigator_room.id)
     navigator_rooms: NavigatorRoom[];
 
-    async save(): Promise<void> {
-        await SHabbo.getDatabase().getRoomModels().save(this);
+    async save(): Promise<RoomModel> {
+        this.floor = this.floor.trim().split('\n').map((line) => line.trim()).join('\n');
+
+        return await SHabbo.getDatabase().getRoomModels().save(this);
     }
 
     getDoorPoint(): Point {

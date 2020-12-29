@@ -1,3 +1,4 @@
+import SHabbo from "@SHabbo";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import RoomModel from "../rooms/RoomModel";
 
@@ -17,6 +18,10 @@ class NavigatorRoom {
 
     @Column({ default: 0 })
     cost_credits: number;
+
+    async save(): Promise<NavigatorRoom> {
+        return await SHabbo.getDatabase().getNavigatorRooms().save(this);
+    }
 
     toInterface(): INavigatorRoom {
         return {

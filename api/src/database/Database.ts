@@ -21,6 +21,7 @@ import User from './entities/users/User';
 
 // Other
 import Setting from './entities/Setting';
+import DefaultValues from './DefaultValues';
 
 class Database {
     private connections: ConnectionManager;
@@ -105,6 +106,10 @@ class Database {
     public async run(): Promise<void> {
         await this.connection.connect();
         console.log('Connected to the database!');
+
+        if (!(await this.getRoomModels().find({ take: 1 })).length) {
+            await DefaultValues.roomModels();
+        }
     }
 }
 
