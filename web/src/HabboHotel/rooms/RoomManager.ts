@@ -11,6 +11,8 @@ class RoomManager {
     private users_data: IRoomUser[];
     private users_in_room: [number, Avatar][];
 
+    private user_clicked_id: number;
+
     constructor() {
         this.data = {
             id: 0,
@@ -22,10 +24,18 @@ class RoomManager {
 
         this.users_data = [];
         this.users_in_room = [];
+
+        this.user_clicked_id = 0;
+    }
+
+    isInRoom(): boolean {
+        return this.data.id != 0;
     }
 
     setRoomData(data: Partial<IRoom>): void {
         this.data = { ...this.data, ...data };
+
+        HotelManager.getUIManager().getComponentsManager().forEach((component) => component.on('room_data_update'), true);
     }
 
     getRoom(): Room | null {
@@ -94,6 +104,23 @@ class RoomManager {
                     roomZ: user.z,
                     direction: user.rotation,
                 });
+
+                avatar.onClick = () => {
+                    const avatarClickOptions = HotelManager.getUIManager().getComponentsManager().getComponent('avatar_click_options');
+                    if (avatarClickOptions) {
+                        if (!avatarClickOptions.isActive()) {
+                            avatarClickOptions.build();
+                        }
+
+                        if (this.user_clicked_id === user.id && avatarClickOptions.isActive()) {
+                            this.user_clicked_id = 0;
+                            avatarClickOptions.dispose();
+                        } else {
+                            this.user_clicked_id = user.id;
+                            HotelManager.getUIManager().getComponentsManager().forEach((component) => component.on('user_room_clicked', avatar, user), true);
+                        }
+                    }
+                };
 
                 this.users_in_room.push([user.id, avatar]);
 

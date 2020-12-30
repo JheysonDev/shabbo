@@ -5,6 +5,7 @@ import RoomManager from "./rooms/RoomManager";
 import UserManager from "./users/UserManager";
 import UIManager from "./ui/UIManager";
 import SettingsManager from "./settings/SettingsManager";
+import NavigatorManager from "./navigator/NavigatorManager";
 
 class HotelManager {
     static user_id: number = Number(localStorage.getItem('user_id') || '0');
@@ -14,10 +15,13 @@ class HotelManager {
     private static game: Shroom;
     private static settings: SettingsManager;
     private static ui: UIManager;
+    private static navigator: NavigatorManager;
     private static room: RoomManager;
     private static user: UserManager;
 
     run() {
+        HotelManager.getUIManager().run();
+
         const main = HotelManager.getUIManager().getComponentsManager().getComponent('main');
         if (main && !main.isActive()) {
             main.setActive(main.build());
@@ -75,6 +79,14 @@ class HotelManager {
         }
 
         return this.ui;
+    }
+
+    static getNavigatorManager(): NavigatorManager {
+        if (!this.navigator) {
+            this.navigator = new NavigatorManager();
+        }
+
+        return this.navigator;
     }
 
     static getRoomManager(): RoomManager {

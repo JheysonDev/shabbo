@@ -11,6 +11,11 @@ class ConnectEvent implements PacketEvent {
         if (header && !header.isActive()) {
             header.setActive(header.build());
         }
+
+        const footer = HotelManager.getUIManager().getComponentsManager().getComponent('footer');
+        if (footer && !footer.isActive()) {
+            footer.setActive(footer.build());
+        }
     }
 }
 

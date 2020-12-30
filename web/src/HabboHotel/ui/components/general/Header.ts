@@ -30,14 +30,19 @@ class Header extends Component {
         diamondsContainer.x = creditsContainer.width + creditsContainer.x + 16;
         diamondsContainer.y = 4;
 
-        user.onCurrencyChange(() => {
-            const { credits, diamonds } = user.getData();
-
+        user.onCurrencyChange(({ credits, diamonds }) => {
             creditsContainer.changeAmount(credits);
             diamondsContainer.changeAmount(diamonds);
         });
 
         return this.addToMain();
+    }
+
+    on(type: string, ...values: any[]): void {
+        if (type === 'resize') {
+            const [width, height] = values.map(Number);
+            this.container.x = width / 2 - this.container.width / 2;
+        }
     }
 }
 

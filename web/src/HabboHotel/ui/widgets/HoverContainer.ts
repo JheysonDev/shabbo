@@ -4,6 +4,9 @@ import { Container, Graphics, Rectangle, Text, TextStyle } from "pixi.js";
 class HoverContainer extends Container {
     private hover: Container;
 
+    private hoverText: Text;
+    private hoverBox: Graphics;
+
     constructor(text: string, private options?: HoverTextProps) {
         super();
 
@@ -19,18 +22,16 @@ class HoverContainer extends Container {
             letterSpacing: 0.5,
         });
 
-        const hoverText = new Text(text, textStyle);
-        const hoverBox = new Graphics();
+        this.hoverText = new Text(text, textStyle);
+        this.hoverBox = new Graphics();
 
-        hoverText.x = 8;
-        hoverText.y = 4;
+        this.hoverText.x = 8;
+        this.hoverText.y = 4;
 
-        hoverBox.beginFill(0x000000, 0.5);
-        hoverBox.drawRoundedRect(0, 0, hoverText.width + hoverText.x * 2, hoverText.height + hoverText.y * 2, 4);
-        hoverBox.endFill();
+        this._drawHoverBox();
 
-        this.hover.addChild(hoverBox);
-        this.hover.addChild(hoverText);
+        this.hover.addChild(this.hoverBox);
+        this.hover.addChild(this.hoverText);
 
         this.on('mouseover', this._onMouseOver);
         this.on('mousemove', this._onMouseMove);
@@ -88,8 +89,20 @@ class HoverContainer extends Container {
         this.hover.y = coords[1];
     }
 
-    private _onMouseOut() {
+    private _onMouseOut(): void {
         HotelManager.getCanvas().stage.removeChild(this.hover)
+    }
+
+    private _drawHoverBox(): void {
+        this.hoverBox.clear();
+        this.hoverBox.beginFill(0x000000, 0.5);
+        this.hoverBox.drawRoundedRect(0, 0, this.hoverText.width + this.hoverText.x * 2, this.hoverText.height + this.hoverText.y * 2, 4);
+        this.hoverBox.endFill();
+    }
+
+    changeText(text: string): void {
+        this.hoverText.text = text;
+        this._drawHoverBox();
     }
 }
 

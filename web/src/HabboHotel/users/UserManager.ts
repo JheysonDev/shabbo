@@ -1,10 +1,15 @@
 import { Subject } from "rxjs";
 
+interface UserEvents {
+    info_update: Subject<{ username: string, look: string, motto: string }>;
+    currency_update: Subject<{ credits: number, diamonds: number }>;
+}
+
 class UserManager {
     private connected: boolean;
     private data: IUser;
 
-    private currency_event: Subject<void>;
+    private events: UserEvents;
 
     constructor() {
         this.connected = false;
@@ -20,7 +25,10 @@ class UserManager {
             diamonds: 0,
         };
 
-        this.currency_event = new Subject();
+        this.events = {
+            info_update: new Subject(),
+            currency_update: new Subject(),
+        };
     }
 
     isConnected(): boolean {
@@ -38,13 +46,26 @@ class UserManager {
     setData(data: Partial<IUser>): void {
         this.data = { ...this.data, ...data };
 
-        if (data.credits || data.diamonds) {
-            this.currency_event.next();
+        if (data.username || data.look || data.motto) {
+            this.events.info_update.next({
+                username: this.data.username,
+                look: this.data.look,
+                motto: this.data.motto,
+            });
+        } else if (data.credits || data.diamonds) {
+            this.events.currency_update.next({
+                credits: this.data.credits,
+                diamonds: this.data.diamonds,
+            });
         }
     }
 
-    onCurrencyChange(event: () => void): void {
-        this.currency_event.subscribe(() => event());
+    onInfoChange(event: (info: { username: string, look: string, motto: string }) => void): void {
+        this.events.info_update.subscribe((info) => event(info));
+    }
+
+    onCurrencyChange(event: (currency: { credits: number, diamonds: number }) => void): void {
+        this.events.currency_update.subscribe((currency) => event(currency));
     }
 }
 

@@ -1,7 +1,26 @@
 import HotelManager from "../../HotelManager";
 import { Container, DisplayObject } from "pixi.js";
+import { Avatar } from "@jankuss/shroom";
 
-class Component {
+export interface IComponent {
+    hasChild(component: DisplayObject): boolean;
+    addChild(component: DisplayObject): DisplayObject;
+    removeChild(component: DisplayObject): DisplayObject;
+
+    isActive(): boolean;
+    setActive(active: boolean): void;
+
+    on(type: 'tick'): void;
+    on(type: 'resize', width: number, height: number): void;
+
+    on(type: 'room_data_update'): void;
+    on(type: 'user_room_clicked', avatar: Avatar, user: IRoomUser): void;
+
+    build(): boolean;
+    dispose(): boolean;
+}
+
+class Component implements IComponent {
     protected container: Container;
     private active: boolean;
 
@@ -69,6 +88,8 @@ class Component {
     protected get screenHeight(): number {
         return HotelManager.getCanvas().view.height;
     }
+
+    on(type: string, ...values: any[]): void {}
 
     build(): boolean {
         return false;

@@ -1,6 +1,14 @@
 # Unreleased
 
-## 26/12/2020
+## 30/12/2020
+- (@danielsolartech) (Web) Add menu on user click.
+- (@danielsolartech) (Web) Add create room window.
+- (@danielsolartech) (Web) Add navigator manager.
+- (@danielsolartech) (Web) Add footer component.
+- (@danielsolartech) (Web) Add footer icons.
+- (@danielsolartech) (Web) Add text input widget.
+
+## 28/12/2020
 - (@danielsolartech) (Web) Move room_models to external resources.
 - (@danielsolartech) (Api) Import default values when they are empty.
 - (@danielsolartech) Add settings packets.
