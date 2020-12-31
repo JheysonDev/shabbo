@@ -1,6 +1,13 @@
 # Unreleased
 
+## 31/12/2020
+- (@danielsolartech) Add readme.
+- (@danielsolartech) (Api) Fix pathfinding diagonal movement.
+- (@danielsolartech) (Web) Refactoring.
+
 ## 30/12/2020
+- (@danielsolartech) (Api) Add loaders manager.
+- (@danielsolartech) (Web) Fix avatar distorsion.
 - (@danielsolartech) (Web) Add menu on user click.
 - (@danielsolartech) (Web) Add create room window.
 - (@danielsolartech) (Web) Add navigator manager.
@@ -40,10 +47,10 @@
 - (@danielsolartech) Add user info, currency and avatar packets.
 - (@danielsolartech) (Web) Add Redux to client states.
 - (@danielsolartech) (Web) Add websocket client.
-- (@danielsolartech) (API) Fix CORS with websocket connection.
+- (@danielsolartech) (Api) Fix CORS with websocket connection.
 
 ## 16/12/2020
 - (@danielsolartech) Add basic login.
-- (@danielsolartech) (API) Add HTTP and websocket server.
-- (@danielsolartech) (API) Add entities design.
+- (@danielsolartech) (Api) Add HTTP and websocket server.
+- (@danielsolartech) (Api) Add entities design.
 - (@danielsolartech) Initialize project.
