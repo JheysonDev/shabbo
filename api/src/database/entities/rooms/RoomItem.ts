@@ -2,8 +2,9 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import Room from "./Room";
 import User from "../users/User";
 import Item from "../items/Item";
+import SHabbo from "@SHabbo";
 
-@Entity()
+@Entity('room_items')
 class RoomItem {
     @PrimaryGeneratedColumn()
     id: number;
@@ -28,6 +29,10 @@ class RoomItem {
 
     @Column({ default: 0 })
     rotation: number;
+
+    async save(): Promise<RoomItem> {
+        return await SHabbo.getDatabase().getRoomItems().save(this);
+    }
 
     toInterface(): IRoomItem {
         return {

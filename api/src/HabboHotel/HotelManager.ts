@@ -1,8 +1,9 @@
+import LogsManager from "@Logs";
 import SHabbo from "@SHabbo";
 import RoomsManager from "./rooms/RoomsManager";
 
 class HotelManager {
-    private settings: { [key: string]: string };
+    private settings: Settings;
 
     private roomsManager: RoomsManager;
 
@@ -28,11 +29,17 @@ class HotelManager {
 
                 this.settings[key] = value.replace(/{@resources_url}/i, this.settings.resources_url);
             }
+
+            LogsManager.info(`Loaded ${settings.length} settings.`);
         }
     }
 
-    getSettings(): { [key: string]: string } {
+    getSettings(): Settings {
         return this.settings;
+    }
+
+    getSetting(key: string, default_value: string = ''): string {
+        return this.settings[key] || default_value;
     }
 
     getRoomsManager(): RoomsManager {

@@ -9,9 +9,10 @@
         "rootDir": "./src/",
         "baseUrl": "./src/",
         "paths": {
-            "@HabboHotel/*": ["HabboHotel/*"],
             "@Communication/*": ["communication/*"],
             "@Database/*": ["database/*"],
+            "@HabboHotel/*": ["HabboHotel/*"],
+            "@Logs": ["logs/LogsManager.ts"],
             "@Server/*": ["server/*"],
             "@SHabbo": ["SHabbo.ts"],
         },

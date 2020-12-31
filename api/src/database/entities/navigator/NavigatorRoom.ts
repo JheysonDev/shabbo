@@ -2,7 +2,7 @@ import SHabbo from "@SHabbo";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import RoomModel from "../rooms/RoomModel";
 
-@Entity()
+@Entity('navigator_rooms')
 class NavigatorRoom {
     @PrimaryGeneratedColumn()
     id: number;

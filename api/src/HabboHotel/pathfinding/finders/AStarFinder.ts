@@ -17,7 +17,9 @@ class AStarFinder {
     private get diagonal_movement(): DiagonalMovement {
         if (this.options && this.options.diagonal_movement) {
             return this.options.diagonal_movement;
-        } else if (this._allow_diagonal) {
+        } else if (this.allow_diagonal) {
+            return 'ALWAYS';
+        } else if (!this._allow_diagonal) {
             return 'NEVER';
         } else if (this.dont_cross_corners) {
             return 'ONLY_WHEN_NO_OBSTACLES';

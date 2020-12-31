@@ -1,7 +1,8 @@
+import LogsManager from "@Logs";
 import SHabbo from "@SHabbo";
 
-class DefaultValues {
-    static async roomModels(): Promise<void> {
+class RoomModelsLoader implements ILoader {
+    async run(): Promise<void> {
         // Model A
         await SHabbo.getDatabase().getNavigatorRooms().create({
             id: 1,
@@ -1332,8 +1333,8 @@ class DefaultValues {
             order: 35,
         }).save();
 
-        console.log('Inserted 35 room models and navigator rooms.');
+        LogsManager.success('Inserted 35 room models and navigator rooms.');
     }
 }
 
-export default DefaultValues;
+export default RoomModelsLoader;

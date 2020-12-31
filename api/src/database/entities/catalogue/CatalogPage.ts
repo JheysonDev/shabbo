@@ -1,7 +1,8 @@
+import SHabbo from "@SHabbo";
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import CatalogItem from "./CatalogItem";
 
-@Entity()
+@Entity('catalog_pages')
 class CatalogPage {
     @PrimaryGeneratedColumn()
     id: number;
@@ -23,6 +24,10 @@ class CatalogPage {
 
     @OneToMany(() => CatalogItem, (catalog_item) => catalog_item.id)
     catalog_items: CatalogItem[];
+
+    async save(): Promise<CatalogPage> {
+        return await SHabbo.getDatabase().getCatalogPages().save(this);
+    }
 
     toInterface(): ICatalogPage {
         return {

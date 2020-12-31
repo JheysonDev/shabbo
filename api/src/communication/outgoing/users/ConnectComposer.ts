@@ -1,5 +1,6 @@
 import Connection from "@Communication/connection";
 import User from "@Database/entities/users/User";
+import LogsManager from "@Logs";
 import PingComposer from "../handshake/PingComposer";
 import PacketComposer from "../PacketComposer";
 import UserAvatarComposer from "./UserAvatarComposer";
@@ -26,9 +27,11 @@ class ConnectComposer extends PacketComposer {
 
             if (this.user.last_room) {
                 this.user.getHabbo().goToRoom(this.user.last_room.id);
+            } else {
+                this.user.getHabbo().goToRoom(1);
             }
 
-            console.log(`${this.user.username} is connected!`);
+            LogsManager.status(`${this.user.username} is connected!`);
 
             this.writeBoolean(true);
         } catch (e) {

@@ -3,7 +3,7 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import NavigatorRoom from '../navigator/NavigatorRoom';
 import Room from './Room';
 
-@Entity()
+@Entity('room_models')
 class RoomModel {
     @PrimaryGeneratedColumn()
     id: number;

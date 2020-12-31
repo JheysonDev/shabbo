@@ -1,3 +1,4 @@
+import SHabbo from '@SHabbo';
 import { Server as HTTPServer } from 'http';
 import { Server as SocketServer, Socket } from 'socket.io';
 import Connection from './Connection';
@@ -8,11 +9,13 @@ class Communication {
     private connections: Connection[];
 
     constructor(http: HTTPServer) {
+        const hotel_url = SHabbo.getHotel().getSetting('hotel_url', 'http://localhost:3000/');
+
         this.server = new SocketServer(
             http,
             {
                 cors: {
-                    origin: 'http://127.0.0.1:3000',
+                    origin: hotel_url.endsWith('/') ? hotel_url.slice(0, hotel_url.length - 1) : hotel_url,
                     methods: ['GET', 'POST']
                 }
             }

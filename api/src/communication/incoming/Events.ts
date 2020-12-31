@@ -2,7 +2,6 @@ import PacketEvent from "./PacketEvent";
 
 // Handshake
 import PongEvent from "./handshake/PongEvent";
-import SettingsEvent from "./handshake/SettingsEvent";
 
 // Navigator
 import OpenCreateRoomEvent from "./navigator/OpenCreateRoomEvent";
@@ -32,7 +31,6 @@ class Events {
 
     private _registerHandshake() {
         this.addEvent('pong', new PongEvent());
-        this.addEvent('settings', new SettingsEvent());
     }
 
     private _registerNavigator() {

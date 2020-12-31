@@ -2,10 +2,12 @@ import * as Express from 'express';
 import { Server as HTTPServer, createServer } from 'http';
 import Communication from '@Communication/Communication';
 import * as Cors from 'cors';
+import LogsManager from '@Logs';
 
 // Controllers
 import Controller from './controllers/Controller';
 import RoomsController from './controllers/Rooms';
+import SettingsController from './controllers/Settings';
 import UsersController from './controllers/Users';
 
 class Server {
@@ -22,6 +24,7 @@ class Server {
 
         this.controllers = [
             new RoomsController(),
+            new SettingsController(),
             new UsersController(),
         ];
     }
@@ -54,11 +57,11 @@ class Server {
     }
 
     listen(): void {
-        const host: string = process.env.API_HOST || '0.0.0.0';
+        const host: string = process.env.API_HOST || 'localhost';
         const port: number = Number(process.env.API_PORT || '5000');
 
         this.http.listen(port, host, () => {
-            console.log(`Listening on ${host}:${port}`);
+            LogsManager.success(`Listening on ${host}:${port}`);
         });
     }
 }

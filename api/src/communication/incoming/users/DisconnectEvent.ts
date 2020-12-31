@@ -1,4 +1,5 @@
 import Connection from "@Communication/Connection";
+import LogsManager from "@Logs";
 import SHabbo from "@SHabbo";
 import Packet from "../Packet";
 import PacketEvent from "../PacketEvent";
@@ -19,7 +20,7 @@ class DisconnectEvent implements PacketEvent {
             user.online = false;
             await user.save();
 
-            console.log(`${user.username} is disconnected!`);
+            LogsManager.status(`${user.username} is disconnected!`);
         }
     }
 }

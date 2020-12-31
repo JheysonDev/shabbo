@@ -14,13 +14,15 @@
   "author": "Daniel Solarte Chaverra",
   "license": "MIT",
   "_moduleAliases": {
-    "@HabboHotel": "./build/HabboHotel/",
     "@Communication": "./build/communication/",
     "@Database": "./build/database/",
+    "@HabboHotel": "./build/HabboHotel/",
+    "@Logs": "./build/logs/LogsManager.js",
     "@Server": "./build/server/",
     "@SHabbo": "./build/SHabbo.js"
   },
   "dependencies": {
+    "chalk": "^4.1.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "module-alias": "^2.2.2",

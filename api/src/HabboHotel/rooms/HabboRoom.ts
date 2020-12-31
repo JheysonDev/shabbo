@@ -1,8 +1,5 @@
-import Habbo from "../users/Habbo";
 import PacketComposer from "@Communication/outgoing/PacketComposer";
-import RoomUsersComposer from "@Communication/outgoing/rooms/users/RoomUsersComposer";
 import Room from "@Database/entities/rooms/Room";
-import UserRemoveComposer from "@Communication/outgoing/rooms/users/UserRemoveComposer";
 import GameMap from "./GameMap";
 import RoomUserManager from "./RoomUserManager";
 

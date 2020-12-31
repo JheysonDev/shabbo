@@ -1,8 +1,9 @@
+import SHabbo from "@SHabbo";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import Item from "../items/Item";
 import CatalogPage from "./CatalogPage";
 
-@Entity()
+@Entity('catalog_items')
 class CatalogItem {
     @PrimaryGeneratedColumn()
     id: number;
@@ -21,6 +22,10 @@ class CatalogItem {
 
     @Column({ default: 0 })
     cost_diamonds: number;
+
+    async save(): Promise<CatalogItem> {
+        return await SHabbo.getDatabase().getCatalogItems().save(this);
+    }
 
     toInterface(): ICatalogItem {
         return {

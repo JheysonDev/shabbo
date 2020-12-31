@@ -28,6 +28,9 @@ class RoomUserManager {
         this.habbos.push(habbo);
 
         await habbo.sendPacket(new RoomUsersComposer(this.habbos));
+
+        habbo.getUser().last_room = this.habbo_room.getRoom();
+        await habbo.getUser().save();
     }
 
     async removeHabbo(habbo: Habbo): Promise<void> {

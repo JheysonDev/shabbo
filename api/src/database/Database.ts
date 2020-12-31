@@ -1,4 +1,6 @@
 import { Connection, ConnectionManager, getConnectionManager, Repository } from 'typeorm';
+import LoadersManager from './loaders/LoadersManager';
+import LogsManager from '@Logs';
 
 // Catalogue
 import CatalogItem from './entities/catalogue/CatalogItem';
@@ -21,11 +23,12 @@ import User from './entities/users/User';
 
 // Other
 import Setting from './entities/Setting';
-import DefaultValues from './DefaultValues';
 
 class Database {
     private connections: ConnectionManager;
     private connection: Connection;
+
+    private loaders: LoadersManager
 
     constructor() {
         this.connections = getConnectionManager();
@@ -61,54 +64,81 @@ class Database {
             ],
             synchronize: true,
         });
+
+        this.loaders = new LoadersManager();
     }
 
-    public getCatalogItems(): Repository<CatalogItem> {
+    getLoadersManager(): LoadersManager {
+        return this.loaders;
+    }
+
+    getCatalogItems(): Repository<CatalogItem> {
         return this.connection.getRepository(CatalogItem);
     }
 
-    public getCatalogPages(): Repository<CatalogPage> {
+    getCatalogPages(): Repository<CatalogPage> {
         return this.connection.getRepository(CatalogPage);
     }
 
-    public getItems(): Repository<Item> {
+    getItems(): Repository<Item> {
         return this.connection.getRepository(Item);
     }
 
-    public getNavigatorCategory(): Repository<NavigatorCategory> {
+    getNavigatorCategory(): Repository<NavigatorCategory> {
         return this.connection.getRepository(NavigatorCategory);
     }
 
-    public getNavigatorRooms(): Repository<NavigatorRoom> {
+    getNavigatorRooms(): Repository<NavigatorRoom> {
         return this.connection.getRepository(NavigatorRoom);
     }
 
-    public getRooms(): Repository<Room> {
+    getRooms(): Repository<Room> {
         return this.connection.getRepository(Room);
     }
 
-    public getRoomItems(): Repository<RoomItem> {
+    getRoomItems(): Repository<RoomItem> {
         return this.connection.getRepository(RoomItem);
     }
 
-    public getRoomModels(): Repository<RoomModel> {
+    getRoomModels(): Repository<RoomModel> {
         return this.connection.getRepository(RoomModel);
     }
 
-    public getUsers(): Repository<User> {
+    getUsers(): Repository<User> {
         return this.connection.getRepository(User);
     }
 
-    public getSettings(): Repository<Setting> {
+    getSettings(): Repository<Setting> {
         return this.connection.getRepository(Setting);
     }
 
-    public async run(): Promise<void> {
+    async run(): Promise<void> {
         await this.connection.connect();
-        console.log('Connected to the database!');
+        LogsManager.success('Connected to the database!');
 
+        // Insert default settings values.
+        if (!(await this.getSettings().find({ take: 1})).length) {
+            await this.getLoadersManager().runLoader('settings');
+        }
+
+        // Insert default room models.
         if (!(await this.getRoomModels().find({ take: 1 })).length) {
-            await DefaultValues.roomModels();
+            await this.getLoadersManager().runLoader('room_models');
+        }
+
+        // Insert default navigator categories.
+        if (!(await this.getNavigatorCategory().find({ take: 1 })).length) {
+            await this.getLoadersManager().runLoader('navigator_categories');
+        }
+
+        // Insert default users.
+        if (!(await this.getUsers().find({ take: 1})).length) {
+            await this.getLoadersManager().runLoader('users');
+        }
+
+        // Insert default rooms.
+        if (!(await this.getRooms().find({ take: 1 })).length) {
+            await this.getLoadersManager().runLoader('rooms');
         }
     }
 }

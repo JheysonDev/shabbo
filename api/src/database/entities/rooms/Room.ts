@@ -1,10 +1,11 @@
+import SHabbo from '@SHabbo';
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import NavigatorCategory from '../navigator/NavigatorCategory';
 import User from '../users/User';
 import RoomItem from './RoomItem';
 import RoomModel from './RoomModel';
 
-@Entity()
+@Entity('rooms')
 class Room {
     @PrimaryGeneratedColumn()
     id: number;
@@ -26,6 +27,10 @@ class Room {
 
     @OneToMany(() => User, (user) => user.id)
     last_users: User[];
+
+    async save(): Promise<Room> {
+        return await SHabbo.getDatabase().getRooms().save(this);
+    }
 
     toInterface(): IRoom {
         return {

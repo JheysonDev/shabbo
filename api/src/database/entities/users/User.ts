@@ -4,7 +4,7 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from 'ty
 import Room from '../rooms/Room';
 import RoomItem from '../rooms/RoomItem';
 
-@Entity()
+@Entity('users')
 class User {
     @PrimaryGeneratedColumn()
     id: number;
@@ -49,8 +49,8 @@ class User {
         return this._habbo;
     }
 
-    async save(): Promise<void> {
-        await SHabbo.getDatabase().getUsers().save(this);
+    async save(): Promise<User> {
+        return await SHabbo.getDatabase().getUsers().save(this);
     }
 
     toInterface(): IUser {
