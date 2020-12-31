@@ -1,107 +1,86 @@
-import { Shroom } from "@jankuss/shroom";
-import Connection from "../communication/Connection";
 import { Application } from "pixi.js";
-import RoomManager from "./rooms/RoomManager";
-import UserManager from "./users/UserManager";
+import { Shroom } from "@jankuss/shroom";
+import SHabbo from "@SHabbo";
 import UIManager from "./ui/UIManager";
-import SettingsManager from "./settings/SettingsManager";
+import UserManager from "./users/UserManager";
 import NavigatorManager from "./navigator/NavigatorManager";
+import Connection from "@Communication/Connection";
+import RoomManager from "./rooms/RoomManager";
 
 class HotelManager {
-    static user_id: number = Number(localStorage.getItem('user_id') || '0');
+    private connection: Connection;
 
-    private static connection: Connection;
-    private static canvas: Application;
-    private static game: Shroom;
-    private static settings: SettingsManager;
-    private static ui: UIManager;
-    private static navigator: NavigatorManager;
-    private static room: RoomManager;
-    private static user: UserManager;
+    private application: Application;
+    private game: Shroom;
 
-    run() {
-        HotelManager.getUIManager().run();
+    private ui: UIManager;
+    private navigator: NavigatorManager;
+    private room: RoomManager;
+    private user: UserManager;
 
-        const main = HotelManager.getUIManager().getComponentsManager().getComponent('main');
-        if (main && !main.isActive()) {
-            main.setActive(main.build());
-        }
+    constructor() {
+        this.connection = new Connection();
 
-        HotelManager.getConnection();
-        HotelManager.getSettingsManager().run();
+        this.application = new Application({
+            width: window.innerWidth,
+            height: window.innerHeight,
+            resizeTo: window,
+            antialias: false,
+            resolution: window.devicePixelRatio,
+            autoDensity: true,
+            backgroundColor: 0x3F51B5,
+        });
+
+        this.game = Shroom.create({
+            application: this.application,
+            resourcePath: SHabbo.getSetting('resources_url', 'http://localhost:5500/'),
+        });
+
+        this.ui = new UIManager();
+        this.navigator = new NavigatorManager();
+        this.room = new RoomManager();
+        this.user = new UserManager();
     }
 
-    static getConnection(): Connection {
-        if (!this.connection) {
-            this.connection = new Connection();
+    run(): void {
+        const main = this.getUIManager().getComponentsManager().getComponent('main');
+        if (main && !main.isActive()) {
+            main.build();
         }
 
+        window.onresize = () => {
+            const { width, height } = this.application.screen;
+            this.ui.getComponentsManager().forEach((component) => component.on('resize', width, height), true);
+        };
+
+        this.application.ticker.add(() => this.ui.getComponentsManager().forEach((component) => component.on('tick'), true));
+    }
+
+    getConnection(): Connection {
         return this.connection;
     }
 
-    static getCanvas(): Application {
-        if (!this.canvas) {
-            this.canvas = new Application({
-                width: window.innerWidth,
-                height: window.innerHeight,
-                resizeTo: window,
-                resolution: window.devicePixelRatio,
-                autoDensity: true,
-                backgroundColor: 0x3F51B5,
-            });
-        }
-
-        return this.canvas;
+    getApplication(): Application {
+        return this.application;
     }
 
-    static getGame(): Shroom {
-        if (!this.game) {
-            this.game = Shroom.create({
-                application: this.getCanvas(),
-                resourcePath: "http://localhost:5500",
-            });
-        }
-
+    getGame(): Shroom {
         return this.game;
     }
 
-    static getSettingsManager(): SettingsManager {
-        if (!this.settings) {
-            this.settings = new SettingsManager();
-        }
-
-        return this.settings;
-    }
-
-    static getUIManager(): UIManager {
-        if (!this.ui) {
-            this.ui = new UIManager();
-        }
-
+    getUIManager(): UIManager {
         return this.ui;
     }
 
-    static getNavigatorManager(): NavigatorManager {
-        if (!this.navigator) {
-            this.navigator = new NavigatorManager();
-        }
-
+    getNavigatorManager(): NavigatorManager {
         return this.navigator;
     }
 
-    static getRoomManager(): RoomManager {
-        if (!this.room) {
-            this.room = new RoomManager();
-        }
-
+    getRoomManager(): RoomManager {
         return this.room;
     }
 
-    static getUserManager(): UserManager {
-        if (!this.user) {
-            this.user = new UserManager();
-        }
-
+    getUserManager(): UserManager {
         return this.user;
     }
 }

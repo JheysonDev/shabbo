@@ -1,5 +1,5 @@
-import HotelManager from "../../../HabboHotel/HotelManager";
-import Connection from "../../Connection";
+import Connection from "@Communication/Connection";
+import SHabbo from "@SHabbo";
 import Packet from "../Packet";
 import PacketEvent from "../PacketEvent";
 
@@ -8,7 +8,7 @@ class UserInfoEvent implements PacketEvent {
         const userID = await packet.readInteger();
         const username = await packet.readString();
 
-        HotelManager.getUserManager().setData({ id: userID, username });
+        SHabbo.getHotelManager().getUserManager().setData({ id: userID, username });
     }
 }
 

@@ -1,8 +1,8 @@
-import HotelManager from "../../../HotelManager";
+import TextInput from "@HabboHotel/ui/widgets/forms/TextInput";
+import SHabbo from "@SHabbo";
 import { Container, Graphics, Sprite, Text, TextStyle } from "pixi.js";
-import Component from "../Component";
 import { Subject } from "rxjs";
-import TextInput from "../../widgets/forms/TextInput";
+import Component from "../Component";
 
 class CreateRoomWindow extends Component {
     private _width: number = 450;
@@ -75,7 +75,7 @@ class CreateRoomWindow extends Component {
             modelName.x = modelGraphics.width / 2 - modelName.width / 2;
             modelName.y = 8;
 
-            const modelImage = Sprite.from(`${HotelManager.getSettingsManager().getSetting('images_url')?.getValue() ?? ''}room_models/${room_model.id}.png`);
+            const modelImage = Sprite.from(`${SHabbo.getSetting('images_url')}room_models/${room_model.id}.png`);
             modelGraphics.addChild(modelImage);
 
             modelImage.width = 71;
@@ -122,8 +122,8 @@ class CreateRoomWindow extends Component {
             }
         }
 
-        HotelManager.getNavigatorManager().getRoomModels().forEach((room_model, i) => _buildRoomModel(room_model, i));
-        HotelManager.getNavigatorManager().onRoomModelAdd((room_model, i) => _buildRoomModel(room_model, i));
+        SHabbo.getHotelManager().getNavigatorManager().getRoomModels().forEach((room_model, i) => _buildRoomModel(room_model, i));
+        SHabbo.getHotelManager().getNavigatorManager().onRoomModelAdd((room_model, i) => _buildRoomModel(room_model, i));
 
         return roomModels;
     }

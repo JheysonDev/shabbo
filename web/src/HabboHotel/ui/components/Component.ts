@@ -1,6 +1,6 @@
-import HotelManager from "../../HotelManager";
-import { Container, DisplayObject } from "pixi.js";
 import { Avatar } from "@jankuss/shroom";
+import SHabbo from "@SHabbo";
+import { Container, DisplayObject } from "pixi.js";
 
 export interface IComponent {
     hasChild(component: DisplayObject): boolean;
@@ -10,14 +10,14 @@ export interface IComponent {
     isActive(): boolean;
     setActive(active: boolean): void;
 
-    on(type: 'tick'): void;
     on(type: 'resize', width: number, height: number): void;
+    on(type: 'tick'): void;
 
     on(type: 'room_data_update'): void;
     on(type: 'user_room_clicked', avatar: Avatar, user: IRoomUser): void;
 
-    build(): boolean;
-    dispose(): boolean;
+    build(): void;
+    dispose(): void;
 }
 
 class Component implements IComponent {
@@ -50,7 +50,7 @@ class Component implements IComponent {
     }
 
     protected isInStage(): boolean {
-        return HotelManager.getCanvas().stage.children.includes(this.container);
+        return SHabbo.getHotelManager().getApplication().stage.children.includes(this.container);
     }
 
     protected addToStage(): void {
@@ -58,7 +58,7 @@ class Component implements IComponent {
             return;
         }
 
-        HotelManager.getCanvas().stage.addChild(this.container);
+        SHabbo.getHotelManager().getApplication().stage.addChild(this.container);
     }
 
     protected removeFromStage(): void {
@@ -66,38 +66,32 @@ class Component implements IComponent {
             return;
         }
 
-        HotelManager.getCanvas().stage.removeChild(this.container);
+        SHabbo.getHotelManager().getApplication().stage.removeChild(this.container);
     }
 
     protected isInMain(): boolean {
-        return HotelManager.getUIManager().isChildInMain(this.container);
+        return SHabbo.getHotelManager().getUIManager().isChildInMain(this.container);
     }
 
     protected addToMain(): boolean {
-        return HotelManager.getUIManager().addChildToMain(this.container) != null;
+        return SHabbo.getHotelManager().getUIManager().addChildToMain(this.container) != null;
     }
 
     protected removeFromMain(): boolean {
-        return HotelManager.getUIManager().removeChildFromMain(this.container) != null;
+        return SHabbo.getHotelManager().getUIManager().removeChildFromMain(this.container) != null;
     }
 
     protected get screenWidth(): number {
-        return HotelManager.getCanvas().view.width;
+        return SHabbo.getHotelManager().getApplication().screen.width;
     }
 
     protected get screenHeight(): number {
-        return HotelManager.getCanvas().view.height;
+        return SHabbo.getHotelManager().getApplication().screen.height;
     }
 
-    on(type: string, ...values: any[]): void {}
-
-    build(): boolean {
-        return false;
-    }
-
-    dispose(): boolean {
-        return false;
-    }
+    build(): void {}
+    on(type: OnType, ...values: any[]): void {}
+    dispose(): void {}
 }
 
 export default Component;

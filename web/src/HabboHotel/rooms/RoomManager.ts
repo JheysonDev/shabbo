@@ -1,6 +1,6 @@
 import { Avatar, Room, RoomCamera } from "@jankuss/shroom";
-import MoveToComposer from "../../communication/outgoing/rooms/users/MoveToComposer";
-import HotelManager from "../HotelManager";
+import MoveToComposer from "@Communication/outgoing/rooms/users/MoveToComposer";
+import SHabbo from "@SHabbo";
 
 class RoomManager {
     private data: IRoom;
@@ -35,7 +35,7 @@ class RoomManager {
     setRoomData(data: Partial<IRoom>): void {
         this.data = { ...this.data, ...data };
 
-        HotelManager.getUIManager().getComponentsManager().forEach((component) => component.on('room_data_update'), true);
+        SHabbo.getHotelManager().getUIManager().getComponentsManager().forEach((component) => component.on('room_data_update'), true);
     }
 
     getRoom(): Room | null {
@@ -59,24 +59,24 @@ class RoomManager {
 
     generateRoom(): Room {
         if (this.camera) {
-            HotelManager.getUIManager().removeChildFromMain(this.camera);
+            SHabbo.getHotelManager().getUIManager().removeChildFromMain(this.camera);
         }
 
-        this.room = Room.create(HotelManager.getGame(), {
+        this.room = Room.create(SHabbo.getHotelManager().getGame(), {
             tilemap: this.data.floor,
         });
 
-        this.room.x = HotelManager.getCanvas().view.width / 2 - this.room.roomWidth / 2;
-        this.room.y = HotelManager.getCanvas().view.height / 2 - this.room.roomHeight / 2;
+        this.room.x = ~~(SHabbo.getHotelManager().getApplication().view.width / 2 - this.room.roomWidth / 2);
+        this.room.y = ~~(SHabbo.getHotelManager().getApplication().view.height / 2 - this.room.roomHeight / 2);
 
         this.room.onTileClick = (position) => {
-            HotelManager.getConnection().sendPacket(new MoveToComposer(position.roomX, position.roomY));
+            SHabbo.getHotelManager().getConnection().sendPacket(new MoveToComposer(position.roomX, position.roomY));
         };
 
         this.camera = RoomCamera.forScreen(this.room);
         this.camera.zIndex = 0;
 
-        HotelManager.getUIManager().addChildToMain(this.camera);
+        SHabbo.getHotelManager().getUIManager().addChildToMain(this.camera);
         return this.room;
     }
 
@@ -106,7 +106,7 @@ class RoomManager {
                 });
 
                 avatar.onClick = () => {
-                    const avatarClickOptions = HotelManager.getUIManager().getComponentsManager().getComponent('avatar_click_options');
+                    const avatarClickOptions = SHabbo.getHotelManager().getUIManager().getComponentsManager().getComponent('avatar_click_options');
                     if (avatarClickOptions) {
                         if (!avatarClickOptions.isActive()) {
                             avatarClickOptions.build();
@@ -117,13 +117,12 @@ class RoomManager {
                             avatarClickOptions.dispose();
                         } else {
                             this.user_clicked_id = user.id;
-                            HotelManager.getUIManager().getComponentsManager().forEach((component) => component.on('user_room_clicked', avatar, user), true);
+                            SHabbo.getHotelManager().getUIManager().getComponentsManager().forEach((component) => component.on('user_room_clicked', avatar, user),true);
                         }
                     }
                 };
 
                 this.users_in_room.push([user.id, avatar]);
-
                 this.room.addRoomObject(avatar);
             }
         }

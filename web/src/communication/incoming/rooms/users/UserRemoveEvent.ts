@@ -1,11 +1,11 @@
-import Connection from "../../../Connection";
-import Packet from "../../Packet";
-import PacketEvent from "../../PacketEvent";
-import HotelManager from "../../../../HabboHotel/HotelManager";
+import Connection from "@Communication/Connection";
+import Packet from "@Communication/incoming/Packet";
+import PacketEvent from "@Communication/incoming/PacketEvent";
+import SHabbo from "@SHabbo";
 
 class UserRemoveEvent implements PacketEvent {
-    async execute(connection: Connection, packet: Packet): Promise<void> {
-        HotelManager.getRoomManager().removeUser(await packet.readInteger());
+    async execute(_connection: Connection, packet: Packet): Promise<void> {
+        SHabbo.getHotelManager().getRoomManager().removeUser(await packet.readInteger());
     }
 }
 

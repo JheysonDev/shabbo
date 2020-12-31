@@ -1,10 +1,10 @@
-import Connection from "../../Connection";
-import HotelManager from "../../../HabboHotel/HotelManager";
+import Connection from "@Communication/Connection";
+import SHabbo from "@SHabbo";
 import Packet from "../Packet";
 import PacketEvent from "../PacketEvent";
 
 class NavigatorRoomModelsEvent implements PacketEvent {
-    async execute(connection: Connection, packet: Packet): Promise<void> {
+    async execute(_connection: Connection, packet: Packet): Promise<void> {
         const size = await packet.readInteger();
 
         if (size > 0) {
@@ -13,7 +13,7 @@ class NavigatorRoomModelsEvent implements PacketEvent {
                 const name = await packet.readString();
                 const cost_credits = await packet.readInteger();
 
-                HotelManager.getNavigatorManager().addRoomModel({ id, name, cost_credits });
+                SHabbo.getHotelManager().getNavigatorManager().addRoomModel({ id, name, cost_credits });
             }
         }
     }

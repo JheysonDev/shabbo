@@ -1,18 +1,17 @@
-import HoverContainer from "../../widgets/HoverContainer";
+import OpenCreateRoomComposer from "@Communication/outgoing/navigator/OpenCreateRoomComposer";
+import TextInput from "@HabboHotel/ui/widgets/forms/TextInput";
+import HabboContainer from "@HabboHotel/ui/widgets/HabboContainer";
+import HoverContainer from "@HabboHotel/ui/widgets/HoverContainer";
+import SHabbo from "@SHabbo";
 import { Container, Graphics, RoundedRectangle, Sprite, Text, TextStyle } from "pixi.js";
 import Component from "../Component";
-import HotelManager from "../../../HotelManager";
-import HabboContainer from "../../widgets/HabboContainer";
-import OpenCreateRoomComposer from "../../../../communication/outgoing/navigator/OpenCreateRoomComposer";
-import TextInput from "../../widgets/forms/TextInput";
 
-import RoomsIcon from "../../images/footer/rooms.png";
-import CatalogueIcon from "../../images/footer/catalogue.png";
-import InventoryIcon from "../../images/footer/inventory.png";
+// Icons
+import RoomsIcon from "@Assets/images/footer/rooms.png";
+import CatalogueIcon from "@Assets/images/footer/catalogue.png";
+import InventoryIcon from "@Assets/images/footer/inventory.png";
 
-class Footer extends Component {
-    private user = HotelManager.getUserManager();
-
+class FooterComponent extends Component {
     private _buildNavButton(icon: string, hover_text: string): Container {
         const button = new HoverContainer(hover_text, { width: 44, height: 50, direction: 'right' });
 
@@ -30,11 +29,11 @@ class Footer extends Component {
     }
 
     private _buildUserButton(): Container {
-        const userButton = new HoverContainer(this.user.getData().username, { direction: 'top' });
+        const userButton = new HoverContainer(SHabbo.getHotelManager().getUserManager().getData().username, { direction: 'top' });
         userButton.hitArea = new RoundedRectangle(0, 0, 60, 60, 4);
         userButton.buttonMode = true;
 
-        this.user.onInfoChange(({ username }) => {
+        SHabbo.getHotelManager().getUserManager().onInfoChange(({ username }) => {
             userButton.changeText(username);
         });
 
@@ -131,10 +130,10 @@ class Footer extends Component {
     }
 
     private async _onRoomsButtonClick(): Promise<void> {
-        const createRoomWindow = HotelManager.getUIManager().getComponentsManager().getComponent('create_room_window');
+        const createRoomWindow = SHabbo.getHotelManager().getUIManager().getComponentsManager().getComponent('create_room_window');
         if (createRoomWindow) {
             if (!createRoomWindow.isActive()) {
-                await HotelManager.getConnection().sendPacket(new OpenCreateRoomComposer());
+                await SHabbo.getHotelManager().getConnection()?.sendPacket(new OpenCreateRoomComposer());
                 createRoomWindow.build();
             } else {
                 createRoomWindow.dispose();
@@ -147,7 +146,7 @@ class Footer extends Component {
     private _catalogueButton: Container | null = null;
 
     private _buildInRoomNavButtons(): void {
-        if (HotelManager.getRoomManager().isInRoom() && this._navContainer && this._catalogueButton) {
+        if (SHabbo.getHotelManager().getRoomManager().isInRoom() && this._navContainer && this._catalogueButton) {
             this._navContainer.changeHeight(182);
 
             const inventoryButton = this._buildNavButton(InventoryIcon, 'Inventory');
@@ -160,7 +159,7 @@ class Footer extends Component {
     private _userButton: Container | null = null;
     private _userActions: Container | null = null;
 
-    build(): boolean {
+    build(): void {
         this._navContainer = new HabboContainer(60, 124);
         this.container.zIndex = 1000;
 
@@ -191,10 +190,11 @@ class Footer extends Component {
         this.container.x = 16;
         this.container.y = this.screenHeight - this.container.height - 16;
 
-        return this.addToMain();
+        this.addToMain();
+        this.setActive(true);
     }
 
-    on(type: string, ...values: any[]): void {
+    on(type: OnType, ...values: any[]): void {
         if (type === 'resize') {
             const [_, height] = values.map(Number);
             this.container.y = height - this.container.height - 16;
@@ -211,4 +211,4 @@ class Footer extends Component {
     }
 }
 
-export default Footer;
+export default FooterComponent;

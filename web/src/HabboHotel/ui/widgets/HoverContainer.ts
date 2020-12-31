@@ -1,4 +1,4 @@
-import HotelManager from "../../HotelManager";
+import SHabbo from "@SHabbo";
 import { Container, Graphics, Rectangle, Text, TextStyle } from "pixi.js";
 
 class HoverContainer extends Container {
@@ -74,8 +74,8 @@ class HoverContainer extends Container {
     private _onMouseOver(e: any) {
         const { x, y } = e.data.global;
         const coords = this._calculateDirection(x, y);
-
-        HotelManager.getCanvas().stage.addChild(this.hover);
+        
+        SHabbo.getHotelManager().getApplication().stage.addChild(this.hover);
 
         this.hover.x = coords[0];
         this.hover.y = coords[1];
@@ -90,7 +90,7 @@ class HoverContainer extends Container {
     }
 
     private _onMouseOut(): void {
-        HotelManager.getCanvas().stage.removeChild(this.hover)
+        SHabbo.getHotelManager().getApplication().stage.removeChild(this.hover);
     }
 
     private _drawHoverBox(): void {

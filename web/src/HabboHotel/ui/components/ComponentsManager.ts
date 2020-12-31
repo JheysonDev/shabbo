@@ -1,15 +1,15 @@
-import Component, { IComponent } from "./components/Component";
+import { IComponent } from "./Component";
 
 // General
-import Footer from "./components/general/Footer";
-import Header from "./components/general/Header";
-import Main from "./components/general/Main";
+import FooterComponent from "./general/FooterComponent";
+import HeaderComponent from "./general/HeaderComponent";
+import MainComponent from "./general/MainComponent";
 
 // Rooms
-import AvatarClickOptions from "./components/rooms/AvatarClickOptions";
+import AvatarClickOptions from "./rooms/AvatarClickOptions";
 
 // Windows
-import CreateRoomWindow from "./components/windows/CreateRoomWindow";
+import CreateRoomWindow from "./windows/CreateRoomWindow";
 
 class ComponentsManager {
     private components: Map<string, IComponent>;
@@ -27,9 +27,9 @@ class ComponentsManager {
     }
 
     private _registerGeneral(): void {
-        this.addComponent('footer', new Footer());
-        this.addComponent('header', new Header());
-        this.addComponent('main', new Main());
+        this.addComponent('footer', new FooterComponent());
+        this.addComponent('header', new HeaderComponent());
+        this.addComponent('main', new MainComponent());
     }
 
     private _registerRooms(): void {
@@ -58,7 +58,7 @@ class ComponentsManager {
         return this.components.has(name);
     }
 
-    addComponent(name: string, component: Component): void {
+    addComponent(name: string, component: IComponent): void {
         if (this.hasComponent(name)) {
             return;
         }

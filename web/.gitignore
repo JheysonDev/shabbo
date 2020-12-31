@@ -3,3 +3,6 @@
 
 # Production
 /build/
+
+# Development
+.env

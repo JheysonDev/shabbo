@@ -1,33 +1,9 @@
-import ClientPage from './pages/Client';
-import LoginPage from './pages/Login';
-import './Index.scss';
+import SHabbo from "@SHabbo";
+import "@Assets/styles/general.scss";
 
-const user_id: number = Number(localStorage.getItem('user_id') || '0');
-const isLogged = user_id > 0;
-
-switch (document.location.pathname.toLowerCase()) {
-    case '/client': {
-        if (!isLogged) {
-            document.location.href = '/';
-            break;
-        }
-
-        ClientPage();
-        break;
-    }
-
-    case '/login': {
-        if (isLogged) {
-            document.location.href = '/';
-            break;
-        }
-
-        LoginPage();
-        break;
-    }
-
-    default: {
-        document.location.href = `/${isLogged ? 'client' : 'login'}`;
-        break;
-    }
+try {
+    const app = new SHabbo();
+    app.run();
+} catch (e) {
+    console.error('SHabbo Manager', e);
 }

@@ -1,5 +1,5 @@
-import HotelManager from "../../../HabboHotel/HotelManager";
-import Connection from "../../Connection";
+import Connection from "@Communication/Connection";
+import SHabbo from "@SHabbo";
 import Packet from "../Packet";
 import PacketEvent from "../PacketEvent";
 
@@ -8,7 +8,7 @@ class UserCurrencyEvent implements PacketEvent {
         const credits = await packet.readInteger();
         const diamonds = await packet.readInteger();
 
-        HotelManager.getUserManager().setData({ credits, diamonds });
+        SHabbo.getHotelManager().getUserManager().setData({ credits, diamonds });
     }
 }
 

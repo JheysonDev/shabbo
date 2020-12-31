@@ -1,20 +1,20 @@
 import Component from "../Component";
 
-class Main extends Component {
-    build(): boolean {
+class MainComponent extends Component {
+    build(): void {
         this.container.x = 0;
         this.container.y = 0;
 
         this.container.sortableChildren = true;
 
         this.addToStage();
-        return true;
+        this.setActive(true);
     }
 
-    dispose(): boolean {
+    dispose(): void {
         this.removeFromStage();
-        return true;
+        this.setActive(false);
     }
 }
 
-export default Main;
+export default MainComponent;

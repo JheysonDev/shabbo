@@ -1,15 +1,7 @@
-/**
- * Copyright (c) Daniel Solarte Chaverra
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * @format
- */
-
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const HtmlWebPackPlugin = require("html-webpack-plugin");
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+const EnvironmentPlugin = require('webpack').EnvironmentPlugin;
 
 if (process.env.NODE_ENV !== 'production') {
     const dotenv = require('dotenv');
@@ -33,6 +25,13 @@ module.exports = {
         fallback: {
             buffer: false,
             timers: false,
+        },
+        alias: {
+            '@Assets': path.resolve(__dirname, './src/assets/'),
+            '@Communication': path.resolve(__dirname, './src/communication/'),
+            '@HabboHotel': path.resolve(__dirname, './src/HabboHotel/'),
+            '@Pages': path.resolve(__dirname, './src/pages/'),
+            '@SHabbo': path.resolve(__dirname, './src/SHabbo.ts'),
         },
     },
     optimization: {
@@ -86,6 +85,9 @@ module.exports = {
         ],
     },
     plugins: [
+        new EnvironmentPlugin({
+            API_URL: process.env.API_URL || 'http://localhost:5000/',
+        }),
         new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
         new HtmlWebPackPlugin({
             template: './public/index.html',
@@ -96,7 +98,7 @@ module.exports = {
     devServer: {
         contentBase: path.resolve(__dirname, 'build'),
         contentBasePublicPath: '/',
-        host: process.env.HOST || '127.0.0.1',
+        host: process.env.HOST || 'localhost',
         port: process.env.PORT || 3000,
         compress: true,
         historyApiFallback: true,

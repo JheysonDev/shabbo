@@ -1,6 +1,6 @@
 import { Avatar, Room } from "@jankuss/shroom";
+import SHabbo from "@SHabbo";
 import { Container, Graphics, Text, TextStyle } from "pixi.js";
-import HotelManager from "../../../HotelManager";
 import Component from "../Component";
 
 class AvatarClickOptions extends Component {
@@ -71,7 +71,7 @@ class AvatarClickOptions extends Component {
     }
 
     build(): boolean {
-        this._room = HotelManager.getRoomManager().getRoom();
+        this._room = SHabbo.getHotelManager().getRoomManager().getRoom();
 
         if (this._room) {
             this._room.addChild(this.container);
@@ -83,7 +83,7 @@ class AvatarClickOptions extends Component {
         return false;
     }
 
-    on(type: string, ...values: any[]): void {
+    on(type: OnType, ...values: any[]): void {
         if (type === 'tick') {
             if (!this.container.children.includes(this._box)) {
                 this._drawBox();

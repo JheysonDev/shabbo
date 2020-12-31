@@ -1,16 +1,15 @@
-import HotelManager from '../HabboHotel/HotelManager';
-import SocketIO from 'socket.io-client';
-import { API_URL } from '../utils/variables';
-import Events from './incoming/Events';
-import Packet from './incoming/Packet';
-import PacketComposer from './outgoing/PacketComposer';
+import SHabbo from "@SHabbo";
+import SocketIO from "socket.io-client";
+import Events from "./incoming/Events";
+import Packet from "./incoming/Packet";
+import PacketComposer from "./outgoing/PacketComposer";
 
 class Connection {
     private socket: SocketIO.Socket;
     private events: Events;
 
     constructor() {
-        this.socket = SocketIO.io(`${API_URL}/?user_id=${HotelManager.user_id}`);
+        this.socket = SocketIO.io(`${SHabbo.API_URL}?user_id=${SHabbo.USER_ID}`);
         this.events = new Events();
 
         this.handleEvents();

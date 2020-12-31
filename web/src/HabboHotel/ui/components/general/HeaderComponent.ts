@@ -1,22 +1,21 @@
+import HabboContainer from "@HabboHotel/ui/widgets/HabboContainer";
+import CurrencyContainer from "@HabboHotel/ui/widgets/header/CurrencyContainer";
+import SHabbo from "@SHabbo";
 import Component from "../Component";
-import HotelManager from "../../../HotelManager";
-import HabboContainer from "../../widgets/HabboContainer";
-import CurrencyContainer from "../../widgets/header/CurrencyContainer";
 
-import CreditIcon from "../../images/header/credits.png";
-import DiamondIcon from "../../images/header/diamonds.png";
+// Icons
+import CreditIcon from "@Assets/images/header/credits.png";
+import DiamondIcon from "@Assets/images/header/diamonds.png";
 
-class Header extends Component {
-    build(): boolean {
-        const user = HotelManager.getUserManager();
-
+class HeaderComponent extends Component {
+    build(): void {
         this.container = new HabboContainer(198, 30);
 
         this.container.x = this.screenWidth / 2 - this.container.width / 2;
         this.container.y = 4;
         this.container.zIndex = 1000;
 
-        const { credits, diamonds } = user.getData();
+        const { credits, diamonds } = SHabbo.getHotelManager().getUserManager().getData();
 
         const creditsContainer = new CurrencyContainer('Credits', CreditIcon, credits);
         this.container.addChild(creditsContainer);
@@ -30,20 +29,21 @@ class Header extends Component {
         diamondsContainer.x = creditsContainer.width + creditsContainer.x + 16;
         diamondsContainer.y = 4;
 
-        user.onCurrencyChange(({ credits, diamonds }) => {
+        SHabbo.getHotelManager().getUserManager().onCurrencyChange(({ credits, diamonds }) => {
             creditsContainer.changeAmount(credits);
             diamondsContainer.changeAmount(diamonds);
         });
 
-        return this.addToMain();
+        this.addToMain();
+        this.setActive(true);
     }
 
-    on(type: string, ...values: any[]): void {
+    on(type: OnType, ...values: any[]): void {
         if (type === 'resize') {
-            const [width, height] = values.map(Number);
+            const [width, _height] = values.map(Number);
             this.container.x = width / 2 - this.container.width / 2;
         }
     }
 }
 
-export default Header;
+export default HeaderComponent;

@@ -1,5 +1,5 @@
-import HotelManager from "../../../HabboHotel/HotelManager";
-import Connection from "../../Connection";
+import Connection from "@Communication/Connection";
+import SHabbo from "@SHabbo";
 import Packet from "../Packet";
 import PacketEvent from "../PacketEvent";
 
@@ -9,7 +9,7 @@ class UserAvatarEvent implements PacketEvent {
         const gender = await packet.readString();
         const motto = await packet.readString();
 
-        HotelManager.getUserManager().setData({
+        SHabbo.getHotelManager().getUserManager().setData({
             look,
             gender: gender === 'M' ? 'M' : 'F',
             motto

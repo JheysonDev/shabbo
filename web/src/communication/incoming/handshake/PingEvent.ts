@@ -1,5 +1,5 @@
-import Connection from "../../Connection";
-import PongComposer from "../../outgoing/handshake/PongComposer";
+import Connection from "@Communication/Connection";
+import PongComposer from "@Communication/outgoing/handshake/PongComposer";
 import Packet from "../Packet";
 import PacketEvent from "../PacketEvent";
 

@@ -10,6 +10,13 @@
         "experimentalDecorators": true,
         "outDir": "./build/",
         "baseUrl": "./src/",
+        "paths": {
+            "@Assets/*": ["assets/*"],
+            "@Communication/*": ["communication/*"],
+            "@HabboHotel/*": ["HabboHotel/*"],
+            "@Pages/*": ["pages/*"],
+            "@SHabbo": ["SHabbo.ts"],
+        },
         "typeRoots": [
             "./node_modules/@types",
             "./src/@types",
