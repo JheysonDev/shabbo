@@ -1,6 +1,7 @@
 # Unreleased
 
 ## 31/12/2020
+- (@danielsolartech) (Web) Fix room models in create room window.
 - (@danielsolartech) Add readme.
 - (@danielsolartech) (Api) Fix pathfinding diagonal movement.
 - (@danielsolartech) (Web) Refactoring.

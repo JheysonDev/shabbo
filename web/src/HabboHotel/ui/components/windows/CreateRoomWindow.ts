@@ -19,14 +19,23 @@ class CreateRoomWindow extends Component {
         const title = new Text('1. Choose a model', this._subTitleStyle);
         roomModels.addChild(title);
 
+        const models = new Container();
+        roomModels.addChild(models);
+
+        const modelsMask = new Graphics().beginFill(0xFFFFFF).drawRect(0, 0, 424, 110).endFill();
+        models.mask = modelsMask;
+
+        roomModels.addChild(modelsMask);
+
         const emptyModel = new Graphics();
-        roomModels.addChild(emptyModel);
+        models.addChild(emptyModel);
 
         emptyModel.beginFill(0xFFFFFF);
         emptyModel.drawRoundedRect(0, 0, 100, 110, 4);
         emptyModel.endFill();
 
         emptyModel.y = title.height + title.y + 8;
+        modelsMask.y = emptyModel.y;
 
         let current_state: [Graphics, TextStyle];
 
@@ -42,12 +51,12 @@ class CreateRoomWindow extends Component {
         });
 
         const _buildRoomModel = (room_model: INavigatorRoom, i: number): void => {
-            if (roomModels.children.includes(emptyModel)) {
-                roomModels.removeChild(emptyModel);
+            if (models.children.includes(emptyModel)) {
+                models.removeChild(emptyModel);
             }
 
             const modelContainer = new Container();
-            roomModels.addChild(modelContainer);
+            models.addChild(modelContainer);
 
             modelContainer.x = 108 * i;
             modelContainer.y = title.height + title.y + 8;
@@ -178,8 +187,8 @@ class CreateRoomWindow extends Component {
         roomName.x = 12;
         roomName.y = roomModels.height + roomModels.y + 8;
 
-        this.container.x = this.screenWidth / 2 - this.container.width / 2;
-        this.container.y = this.screenHeight / 2 - this.container.height / 2;
+        this.container.x = ~~(this.screenWidth / 2 - this.container.width / 2);
+        this.container.y = ~~(this.screenHeight / 2 - this.container.height / 2);
 
         return this.addToMain();
     }

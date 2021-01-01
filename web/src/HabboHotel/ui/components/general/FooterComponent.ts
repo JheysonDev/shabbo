@@ -165,10 +165,10 @@ class FooterComponent extends Component {
 
         this.addChild(this._navContainer);
 
-        this._roomsButton = this._buildNavButton(RoomsIcon, 'Rooms');
+        this._roomsButton = this._buildNavButton(RoomsIcon, 'Create a room');
         this._roomsButton.y = 8;
         this._navContainer.addChild(this._roomsButton);
-        
+
         this._roomsButton.on('click', async () => await this._onRoomsButtonClick());
 
         this._catalogueButton = this._buildNavButton(CatalogueIcon, 'Catalogue');
