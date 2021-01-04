@@ -327,7 +327,10 @@
                             { "parent": { "name": "2012" } },
                             { "parent": { "name": "2014" } },
                             { "parent": { "name": "2015" } },
-                            { "parent": { "name": "2021" } }
+                            {
+                                "parent": { "name": "2021" },
+                                "items": [{ "id": 4712 }]
+                            }
                         ]
                     },
                     {
@@ -536,8 +539,66 @@
                 ]
             },
             { "parent": { "name": "Collectibles" } },
-            { "parent": { "name": "Diamond Paintings" } },
+            {
+                "parent": { "name": "Diamond Paintings" },
+                "items": [
+                    { "id": 4719 },
+                    { "id": 4718 },
+                    { "id": 4717 },
+                    { "id": 4716 },
+                    { "id": 4715 },
+                    { "id": 4714 },
+                    { "id": 4713 },
+                    { "id": 11763 },
+                    { "id": 11762 },
+                    { "id": 11761 },
+                    { "id": 11760 }
+                ]
+            },
             { "parent": { "name": "Gallery" } },
+            {
+                "parent": { "name": "Limited Rares" },
+                "items": [{ "id": 11746 }]
+            },
+            {
+                "parent": { "name": "Other Rares" },
+                "items": [
+                    { "id": 11768 },
+                    { "id": 11759 },
+                    { "id": 11745 }
+                ],
+                "children": [
+                    { "parent": { "name": "Bonus Bags" } },
+                    {
+                        "parent": { "name": "Clothes" },
+                        "children": [
+                            {
+                                "parent": { "name": "Facemasks" },
+                                "items": [
+                                    { "id": 11710 },
+                                    { "id": 11709 },
+                                    { "id": 11708 },
+                                    { "id": 11706 },
+                                    { "id": 11705 },
+                                    { "id": 11704 },
+                                    { "id": 11703 },
+                                    { "id": 11702 },
+                                    { "id": 11701 }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "parent": { "name": "Exchange" },
+                        "items": [
+                            { "id": 11767, "cost_credits": 250 },
+                            { "id": 11766, "cost_credits": 350 },
+                            { "id": 11765, "cost_credits": 750 },
+                            { "id": 11764, "cost_credits": 500 }
+                        ]
+                    }
+                ]
+            },
             {
                 "parent": { "name": "Rares by Type" },
                 "children": [

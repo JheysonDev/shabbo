@@ -1,4 +1,28 @@
 [
+    { "id": 4719, "name": "diamond_painting53" },
+    { "id": 4718, "name": "diamond_painting56" },
+    { "id": 4717, "name": "diamond_painting63" },
+    { "id": 4716, "name": "diamond_painting57" },
+    { "id": 4715, "name": "diamond_painting61" },
+    { "id": 4714, "name": "diamond_painting58" },
+    { "id": 4713, "name": "diamond_painting55" },
+
+    { "id": 4712, "name": "year2021" },
+
+    { "id": 11768, "name": "garden_r21_wisteriaach" },
+
+    { "id": 11767, "name": "CF_250_toiletplate" },
+    { "id": 11766, "name": "CF_350_giantpearl" },
+    { "id": 11765, "name": "CF_750_golddragon" },
+    { "id": 11764, "name": "CF_500_egg" },
+
+    { "id": 11763, "name": "diamond_painting54" },
+    { "id": 11762, "name": "diamond_painting59" },
+    { "id": 11761, "name": "diamond_painting60" },
+    { "id": 11760, "name": "diamond_painting62" },
+
+    { "id": 11759, "name": "plushie_r21_kingbear" },
+
     { "id": 11758, "name": "hc21_7" },
     { "id": 11757, "name": "hc21_10" },
     { "id": 11756, "name": "hc21_9", "can_sit": true },
@@ -11,6 +35,20 @@
     { "id": 11749, "name": "hc21_1" },
     { "id": 11748, "name": "hc21_3" },
     { "id": 11747, "name": "hc21_12", "width": 2, "length": 2 },
+
+    { "id": 11746, "name": "ltd21_unicornpup" },
+
+    { "id": 11745, "name": "rare_r21_coffeesiphon" },
+
+    { "id": 11710, "name": "clothing_r20_mask2" },
+    { "id": 11709, "name": "clothing_r20_mask6" },
+    { "id": 11708, "name": "clothing_r20_mask5" },
+    { "id": 11706, "name": "clothing_r20_mask4" },
+    { "id": 11705, "name": "clothing_r20_mask7" },
+    { "id": 11704, "name": "clothing_r20_mask8" },
+    { "id": 11703, "name": "clothing_r20_mask1" },
+    { "id": 11702, "name": "clothing_r20_mask3" },
+    { "id": 11701, "name": "ny_r20_crackable" },
 
     { "id": 152, "name": "table_polyfon", "width": 2, "length": 2 },
     { "id": 25, "name": "stand_polyfon_z" },

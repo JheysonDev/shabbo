@@ -1,7 +1,8 @@
 # Unreleased
 
 ## 4/1/2021
-- (@danielsolartech) (Api) Add catalogue and items manager.
+- (@danielsolartech) (Api) Add facemasks, 2021 countdown and some rares to items and catalogue datas.
+- (@danielsolartech) (Api) Add catalogue and items managers.
 - (@danielsolartech) (Api) Fix database entities.
 - (@danielsolartech) (Api) Change the catalogue and items data to JSON file.
 
