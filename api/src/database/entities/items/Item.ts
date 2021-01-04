@@ -8,7 +8,7 @@ class Item {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({ unique: true })
     name: string;
 
     @Column({ type: 'enum', enum: ['floor', 'wall'], default: 'floor' })
@@ -20,7 +20,7 @@ class Item {
     @Column({ default: 1 })
     length: number;
 
-    @Column({ default: 0 })
+    @Column({ default: 1 })
     height: number;
 
     @Column({ default: true })

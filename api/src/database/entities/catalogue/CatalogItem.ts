@@ -17,7 +17,7 @@ class CatalogItem {
     @Column({ default: 1 })
     order: number;
 
-    @Column({ default: 5 })
+    @Column({ default: 0 })
     cost_credits: number;
 
     @Column({ default: 0 })

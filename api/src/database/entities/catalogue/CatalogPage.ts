@@ -46,6 +46,13 @@ class CatalogPage {
             catalog_items: this.catalog_items.map((catalog_item) => catalog_item.toInterface()),
         };
     }
+
+    static getTypeFromString(text: string): CatalogPageType {
+        switch (text) {
+            case 'frontpage': return CatalogPageType.Frontpage;
+            default: return CatalogPageType.Default;
+        }
+    }
 }
 
 export default CatalogPage;

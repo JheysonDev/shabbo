@@ -1,5 +1,8 @@
 # Unreleased
 
+## 4/1/2021
+- (@danielsolartech) (Api) Change the catalogue and items data to JSON file.
+
 ## 3/1/2021
 - (@danielsolartech) (Api) Add catalogue pages and items loaders.
 - (@danielsolartech) (Api) Add `type` to catalogue pages.

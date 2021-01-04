@@ -1,0 +1,20 @@
+[
+    { "id": 11758, "name": "hc21_7" },
+    { "id": 11757, "name": "hc21_10" },
+    { "id": 11756, "name": "hc21_9", "can_sit": true },
+    { "id": 11755, "name": "hc21_8", "width": 2, "length": 3 },
+    { "id": 11754, "name": "hc21_2" },
+    { "id": 11753, "name": "hc21_5", "length": 3 },
+    { "id": 11752, "name": "hc21_4" },
+    { "id": 11751, "name": "hc21_6", "width": 2 },
+    { "id": 11750, "name": "hc21_11", "width": 2 },
+    { "id": 11749, "name": "hc21_1" },
+    { "id": 11748, "name": "hc21_3" },
+    { "id": 11747, "name": "hc21_12", "width": 2, "length": 2 },
+
+    { "id": 152, "name": "table_polyfon", "width": 2, "length": 2 },
+    { "id": 25, "name": "stand_polyfon_z" },
+    { "id": 31, "name": "table_polyfon_med", "width": 2, "length": 2 },
+    { "id": 17, "name": "table_polyfon_small", "width": 2, "length": 2 },
+    { "id": 18, "name": "chair_polyfon", "can_sit": true }
+]
