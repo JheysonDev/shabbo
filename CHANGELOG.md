@@ -1,6 +1,8 @@
 # Unreleased
 
 ## 4/1/2021
+- (@danielsolartech) (Api) Add catalogue and items manager.
+- (@danielsolartech) (Api) Fix database entities.
 - (@danielsolartech) (Api) Change the catalogue and items data to JSON file.
 
 ## 3/1/2021
