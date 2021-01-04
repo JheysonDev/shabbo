@@ -2,6 +2,11 @@ import SHabbo from "@SHabbo";
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import CatalogItem from "./CatalogItem";
 
+export enum CatalogPageType {
+    Default = 'default',
+    Frontpage = 'frontpage',
+}
+
 @Entity('catalog_pages')
 class CatalogPage {
     @PrimaryGeneratedColumn()
@@ -9,6 +14,9 @@ class CatalogPage {
 
     @Column()
     name: string;
+
+    @Column({ type: 'enum', enum: Object.values(CatalogPageType), default: CatalogPageType.Default })
+    type: CatalogPageType;
 
     @ManyToOne(() => CatalogPage, (catalog_page) => catalog_page.id, { nullable: true })
     parent: CatalogPage | null;

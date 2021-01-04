@@ -116,30 +116,7 @@ class Database {
         await this.connection.connect();
         LogsManager.success('Connected to the database!');
 
-        // Insert default settings values.
-        if (!(await this.getSettings().find({ take: 1})).length) {
-            await this.getLoadersManager().runLoader('settings');
-        }
-
-        // Insert default room models.
-        if (!(await this.getRoomModels().find({ take: 1 })).length) {
-            await this.getLoadersManager().runLoader('room_models');
-        }
-
-        // Insert default navigator categories.
-        if (!(await this.getNavigatorCategory().find({ take: 1 })).length) {
-            await this.getLoadersManager().runLoader('navigator_categories');
-        }
-
-        // Insert default users.
-        if (!(await this.getUsers().find({ take: 1})).length) {
-            await this.getLoadersManager().runLoader('users');
-        }
-
-        // Insert default rooms.
-        if (!(await this.getRooms().find({ take: 1 })).length) {
-            await this.getLoadersManager().runLoader('rooms');
-        }
+        await this.loaders.runAll();
     }
 }
 

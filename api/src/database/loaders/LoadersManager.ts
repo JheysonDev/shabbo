@@ -1,3 +1,9 @@
+// Catalogue
+import CatalogPagesLoader from "./catalogue/CatalogPagesLoader";
+
+// Items
+import ItemsLoader from "./items/ItemsLoader";
+
 // Navigator
 import NavigatorCategoriesLoader from "./navigator/NavigatorCategoriesLoader";
 
@@ -21,10 +27,20 @@ class LoadersManager {
     }
 
     private _registerLoaders(): void {
+        this._registerCatalogue();
+        this._registerItems();
         this._registerNavigator();
         this._registerOthers();
         this._registerRooms();
         this._registerUsers();
+    }
+
+    private _registerCatalogue(): void {
+        this.addLoader('catalog_pages', new CatalogPagesLoader());
+    }
+
+    private _registerItems(): void {
+        this.addLoader('items', new ItemsLoader());
     }
 
     private _registerNavigator(): void {
@@ -55,12 +71,42 @@ class LoadersManager {
 
     async runLoader(name: string): Promise<boolean> {
         const loader = this.loaders.get(name);
-        if (loader) {
+        if (loader && await loader.beforeRun()) {
             await loader.run();
             return true;
         }
 
         return false;
+    }
+
+    async runAll(): Promise<void> {
+        const order: string[] = [
+            'settings',
+            'users',
+            'navigator_categories',
+            'room_models',
+            'rooms',
+            'items',
+            'catalog_pages',
+        ];
+
+        const loaders: ILoader[] = [];
+
+        for (const [name, loader] of this.loaders.entries()) {
+            const index = order.findIndex((o) => o === name);
+            if (index >= 0) {
+                loaders[index] = loader;
+            }
+        }
+
+        if (loaders.length) {
+            for await (const loader of loaders) {
+                const can_run: boolean = await loader.beforeRun();
+                if (can_run) {
+                    await loader.run();
+                }
+            }
+        }
     }
 }
 

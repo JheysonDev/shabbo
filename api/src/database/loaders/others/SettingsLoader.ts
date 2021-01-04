@@ -2,6 +2,11 @@ import LogsManager from "@Logs";
 import SHabbo from "@SHabbo";
 
 class SettingsLoader implements ILoader {
+    async beforeRun(): Promise<boolean> {
+        const settings = await SHabbo.getDatabase().getSettings().find({ take: 1 });
+        return settings.length === 0;
+    }
+
     async run(): Promise<void> {
         await SHabbo.getDatabase().getSettings().create({
             key: 'hotel_name',
@@ -23,7 +28,7 @@ class SettingsLoader implements ILoader {
             value: '{@resources_url}images/',
         }).save();
 
-        LogsManager.success('Inserted 4 settings.');
+        LogsManager.success('Default settings inserted.');
     }
 }
 

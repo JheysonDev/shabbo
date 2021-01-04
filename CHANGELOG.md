@@ -1,5 +1,11 @@
 # Unreleased
 
+## 3/1/2021
+- (@danielsolartech) (Api) Add catalogue pages and items loaders.
+- (@danielsolartech) (Api) Add `type` to catalogue pages.
+- (@danielsolartech) (Api) Add `type`, `can_stack` and `is_rare` to items.
+- (@danielsolartech) (Api) Add `beforeRun` method to loaders.
+
 ## 31/12/2020
 - (@danielsolartech) (Web) Fix room models in create room window.
 - (@danielsolartech) Add readme.

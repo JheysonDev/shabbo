@@ -2,6 +2,11 @@ import LogsManager from "@Logs";
 import SHabbo from "@SHabbo";
 
 class RoomModelsLoader implements ILoader {
+    async beforeRun(): Promise<boolean> {
+        const room_models = await SHabbo.getDatabase().getRoomModels().find({ take: 1 });
+        return room_models.length === 0;
+    }
+
     async run(): Promise<void> {
         // Model A
         await SHabbo.getDatabase().getNavigatorRooms().create({
@@ -1333,7 +1338,7 @@ class RoomModelsLoader implements ILoader {
             order: 35,
         }).save();
 
-        LogsManager.success('Inserted 35 room models and navigator rooms.');
+        LogsManager.success('Default room models and navigator rooms inserted.');
     }
 }
 

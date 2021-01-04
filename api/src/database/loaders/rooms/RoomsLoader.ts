@@ -2,6 +2,11 @@ import LogsManager from "@Logs";
 import SHabbo from "@SHabbo";
 
 class RoomsLoader implements ILoader {
+    async beforeRun(): Promise<boolean> {
+        const rooms = await SHabbo.getDatabase().getRooms().find({ take: 1 });
+        return rooms.length === 0;
+    }
+
     async run(): Promise<void> {
         const modelA = await SHabbo.getDatabase().getRoomModels().findOne(1);
         const categoryOne = await SHabbo.getDatabase().getNavigatorCategory().findOne(1);
@@ -16,7 +21,7 @@ class RoomsLoader implements ILoader {
                 owner: userOne,
             }).save();
 
-            LogsManager.success('Inserted the room #1.');
+            LogsManager.success('Default room inserted.');
         }
     }
 }

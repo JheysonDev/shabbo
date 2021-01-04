@@ -11,6 +11,9 @@ class Item {
     @Column()
     name: string;
 
+    @Column({ type: 'enum', enum: ['floor', 'wall'], default: 'floor' })
+    type: 'floor' | 'wall';
+
     @Column({ default: 1 })
     width: number;
 
@@ -21,6 +24,9 @@ class Item {
     height: number;
 
     @Column({ default: true })
+    can_stack: boolean;
+
+    @Column({ default: false })
     can_walk: boolean;
 
     @Column({ default: false })
@@ -31,6 +37,9 @@ class Item {
 
     @Column({ default: 1 })
     interaction_count: number;
+
+    @Column({ default: false })
+    is_rare: boolean;
 
     @OneToMany(() => CatalogItem, (catalog_item) => catalog_item.id)
     catalog_items: CatalogItem[];

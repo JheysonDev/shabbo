@@ -5,12 +5,12 @@ import RoomsManager from "./rooms/RoomsManager";
 class HotelManager {
     private settings: Settings;
 
-    private roomsManager: RoomsManager;
+    private rooms: RoomsManager;
 
     constructor() {
         this.settings = {};
 
-        this.roomsManager = new RoomsManager();
+        this.rooms = new RoomsManager();
     }
 
     async run(): Promise<void> {
@@ -43,7 +43,7 @@ class HotelManager {
     }
 
     getRoomsManager(): RoomsManager {
-        return this.roomsManager;
+        return this.rooms;
     }
 }
 
