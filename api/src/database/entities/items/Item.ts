@@ -53,9 +53,21 @@ class Item {
 
     toInterface(): IItem {
         return {
-            ...this,
-            catalog_items: this.catalog_items.map((catalog_item) => catalog_item.toInterface()),
-            rooms: this.rooms.map((room) => room.toInterface()),
+            id: this.id,
+            name: this.name,
+            type: this.type,
+            width: this.width,
+            length: this.length,
+            height: this.height,
+            can_stack: this.can_stack,
+            can_walk: this.can_walk,
+            can_sit: this.can_sit,
+            can_lay: this.can_lay,
+            interaction_count: this.interaction_count,
+            is_rare: this.is_rare,
+
+            catalog_items: this.catalog_items?.map((catalog_item) => catalog_item.toInterface()) ?? [],
+            rooms: this.rooms?.map((room) => room.toInterface()) ?? [],
         };
     }
 }

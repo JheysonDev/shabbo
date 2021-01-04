@@ -19,8 +19,10 @@ class NavigatorCategory {
 
     toInterface(): INavigatorCategory {
         return {
-            ...this,
-            rooms: this.rooms.map((room) => room.toInterface()),
+            id: this.id,
+            name: this.name,
+
+            rooms: this.rooms?.map((room) => room.toInterface()) ?? [],
         };
     }
 }

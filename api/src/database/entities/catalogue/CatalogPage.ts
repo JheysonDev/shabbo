@@ -1,5 +1,5 @@
 import SHabbo from "@SHabbo";
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import CatalogItem from "./CatalogItem";
 
 export enum CatalogPageType {
@@ -19,7 +19,11 @@ class CatalogPage {
     type: CatalogPageType;
 
     @ManyToOne(() => CatalogPage, (catalog_page) => catalog_page.id, { nullable: true })
+    @JoinColumn({ name: 'parent_id' })
     parent: CatalogPage | null;
+
+    @Column({ nullable: true })
+    parent_id: number | null;
 
     @Column({ default: 1 })
     order: number;
@@ -39,11 +43,15 @@ class CatalogPage {
 
     toInterface(): ICatalogPage {
         return {
-            ...this,
-            parent: this.parent.toInterface(),
+            id: this.id,
+            name: this.name,
+            type: this.type,
+            parent: this.parent?.toInterface() ?? null,
+            order: this.order,
+            icon: this.icon,
 
-            children: this.children.map((child) => child.toInterface()),
-            catalog_items: this.catalog_items.map((catalog_item) => catalog_item.toInterface()),
+            children: this.children?.map((child) => child.toInterface()) ?? [],
+            catalog_items: this.catalog_items?.map((catalog_item) => catalog_item.toInterface()) ?? [],
         };
     }
 

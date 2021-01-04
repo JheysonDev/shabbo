@@ -1,5 +1,5 @@
 import SHabbo from "@SHabbo";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import Item from "../items/Item";
 import CatalogPage from "./CatalogPage";
 
@@ -9,10 +9,18 @@ class CatalogItem {
     id: number;
 
     @ManyToOne(() => CatalogPage, (catalog_page) => catalog_page.id)
+    @JoinColumn({ name: 'page_id' })
     page: CatalogPage;
 
+    @Column({ nullable: false })
+    page_id: number;
+
     @ManyToOne(() => Item, (item) => item.id)
+    @JoinColumn({ name: 'item_id' })
     item: Item;
+
+    @Column({ nullable: false })
+    item_id: number;
 
     @Column({ default: 1 })
     order: number;
@@ -29,9 +37,12 @@ class CatalogItem {
 
     toInterface(): ICatalogItem {
         return {
-            ...this,
+            id: this.id,
             page: this.page.toInterface(),
             item: this.item.toInterface(),
+            order: this.order,
+            cost_credits: this.cost_credits,
+            cost_diamonds: this.cost_diamonds,
         };
     }
 }

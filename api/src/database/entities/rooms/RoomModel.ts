@@ -33,11 +33,12 @@ class RoomModel {
 
     toInterface(): IRoomModel {
         return {
-            ...this,
+            id: this.id,
+            floor: this.floor,
             door: this.getDoorPoint(),
 
-            rooms: this.rooms.map((room) => room.toInterface()),
-            navigator_rooms: this.navigator_rooms.map((navigator_room) => navigator_room.toInterface()),
+            rooms: this.rooms?.map((room) => room.toInterface()) ?? [],
+            navigator_rooms: this.navigator_rooms?.map((navigator_room) => navigator_room.toInterface()) ?? [],
         };
     }
 }

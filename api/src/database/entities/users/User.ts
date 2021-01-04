@@ -1,6 +1,6 @@
 import Habbo from '@HabboHotel/users/Habbo';
 import SHabbo from '@SHabbo';
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
 import Room from '../rooms/Room';
 import RoomItem from '../rooms/RoomItem';
 
@@ -31,7 +31,11 @@ class User {
     diamonds: number;
 
     @ManyToOne(() => Room, (room) => room.id, { nullable: true })
+    @JoinColumn({ name: 'last_room_id' })
     last_room: Room | null;
+
+    @Column({ nullable: true })
+    last_room_id: number | null;
 
     @OneToMany(() => Room, (room) => room.id)
     rooms: Room[];
@@ -55,11 +59,18 @@ class User {
 
     toInterface(): IUser {
         return {
-            ...this,
-            last_room: this.last_room ? this.last_room.toInterface() : null,
+            id: this.id,
+            username: this.username,
+            gender: this.gender,
+            look: this.look,
+            motto: this.motto,
+            online: this.online,
+            credits: this.credits,
+            diamonds: this.diamonds,
+            last_room: this.last_room?.toInterface() ?? null,
 
-            rooms: this.rooms.map((room) => room.toInterface()),
-            items: this.items.map((item) => item.toInterface()),
+            rooms: this.rooms?.map((room) => room.toInterface()) ?? [],
+            items: this.items?.map((item) => item.toInterface()) ?? [],
         };
     }
 }
