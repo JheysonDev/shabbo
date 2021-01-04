@@ -1,15 +1,21 @@
 import LogsManager from "@Logs";
 import SHabbo from "@SHabbo";
+import CatalogueManager from "./catalogue/CatalogueManager";
+import ItemsManager from "./items/ItemsManager";
 import RoomsManager from "./rooms/RoomsManager";
 
 class HotelManager {
     private settings: Settings;
 
+    private catalogue: CatalogueManager;
+    private items: ItemsManager;
     private rooms: RoomsManager;
 
     constructor() {
         this.settings = {};
 
+        this.catalogue = new CatalogueManager();
+        this.items = new ItemsManager();
         this.rooms = new RoomsManager();
     }
 
@@ -40,6 +46,14 @@ class HotelManager {
 
     getSetting(key: string, default_value: string = ''): string {
         return this.settings[key] || default_value;
+    }
+
+    getCatalogueManager(): CatalogueManager {
+        return this.catalogue;
+    }
+
+    getItemsManager(): ItemsManager {
+        return this.items;
     }
 
     getRoomsManager(): RoomsManager {
