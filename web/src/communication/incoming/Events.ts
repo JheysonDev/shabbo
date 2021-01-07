@@ -1,5 +1,8 @@
 import PacketEvent from "./PacketEvent";
 
+// Catalogue
+import CatalogPagesEvent from "./catalogue/CatalogPagesEvent";
+
 // Handshake
 import PingEvent from "./handshake/PingEvent";
 
@@ -27,22 +30,27 @@ class Events {
         this._registerEvents();
     }
 
-    private _registerEvents() {
+    private _registerEvents(): void {
+        this._registerCatalogue();
         this._registerHandshake();
         this._registerNavigator();
         this._registerRooms();
         this._registerUsers();
     }
 
-    private _registerHandshake() {
+    private _registerCatalogue(): void {
+        this.addEvent('catalog_pages', new CatalogPagesEvent());
+    }
+
+    private _registerHandshake(): void {
         this.addEvent('ping', new PingEvent());
     }
 
-    private _registerNavigator() {
+    private _registerNavigator(): void {
         this.addEvent('navigator_room_models', new NavigatorRoomModelsEvent());
     }
 
-    private _registerRooms() {
+    private _registerRooms(): void {
         this.addEvent('room_ready', new RoomReadyEvent());
 
         this.addEvent('room_users', new RoomUsersEvent());
@@ -50,7 +58,7 @@ class Events {
         this.addEvent('user_remove', new UserRemoveEvent());
     }
 
-    private _registerUsers() {
+    private _registerUsers(): void {
         this.addEvent('new_connection', new ConnectEvent());
         this.addEvent('user_avatar', new UserAvatarEvent());
         this.addEvent('user_currency', new UserCurrencyEvent());

@@ -16,8 +16,8 @@ export interface IComponent {
     on(type: 'room_data_update'): void;
     on(type: 'user_room_clicked', avatar: Avatar, user: IRoomUser): void;
 
-    build(): void;
-    dispose(): void;
+    build(): Promise<void>;
+    dispose(): Promise<void>;
 }
 
 class Component implements IComponent {
@@ -89,9 +89,9 @@ class Component implements IComponent {
         return SHabbo.getHotelManager().getApplication().screen.height;
     }
 
-    build(): void {}
+    async build(): Promise<void> {}
     on(type: OnType, ...values: any[]): void {}
-    dispose(): void {}
+    async dispose(): Promise<void> {}
 }
 
 export default Component;

@@ -70,17 +70,12 @@ class AvatarClickOptions extends Component {
         this.container.y = y - this.container.height + 10;
     }
 
-    build(): boolean {
+    async build(): Promise<void> {
         this._room = SHabbo.getHotelManager().getRoomManager().getRoom();
-
         if (this._room) {
             this._room.addChild(this.container);
             this.setActive(true);
-
-            return true;
         }
-
-        return false;
     }
 
     on(type: OnType, ...values: any[]): void {
@@ -101,16 +96,12 @@ class AvatarClickOptions extends Component {
         }
     }
 
-    dispose(): boolean {
+    async dispose(): Promise<void> {
         if (this._room) {
             this._room.removeChild(this.container);
             this.container = new Container();
             this.setActive(false);
-
-            return true;
         }
-
-        return false;
     }
 }
 

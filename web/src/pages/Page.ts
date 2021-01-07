@@ -5,7 +5,7 @@ class Page {
 
     buildCSS(): void {}
 
-    build(): HTMLElement {
+    async build(): Promise<HTMLElement> {
         return document.createElement('div');
     }
 }

@@ -15,14 +15,14 @@ class ClientPage extends Page {
         require('@Assets/styles/pages/client/client.scss');
     }
 
-    build(): HTMLElement {
+    async build(): Promise<HTMLElement> {
         const client = document.createElement('div');
         client.classList.add('client');
 
         SHabbo.setHotelManager();
 
         client.appendChild(SHabbo.getHotelManager().getApplication().view);
-        SHabbo.getHotelManager().run();
+        await SHabbo.getHotelManager().run();
 
         return client;
     }

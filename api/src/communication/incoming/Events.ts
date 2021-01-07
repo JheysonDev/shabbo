@@ -1,5 +1,8 @@
 import PacketEvent from "./PacketEvent";
 
+// Catalogue
+import OpenCataloPageEvent from "./catalogue/OpenCatalogPageEvent";
+
 // Handshake
 import PongEvent from "./handshake/PongEvent";
 
@@ -23,27 +26,32 @@ class Events {
     }
 
     private _registerEvents(): void {
+        this._registerCatalogue();
         this._registerHandshake();
         this._registerNavigator();
         this._registerRooms();
         this._registerUsers();
     }
 
-    private _registerHandshake() {
+    private _registerCatalogue(): void {
+        this.addEvent('open_catalog_page', new OpenCataloPageEvent());
+    }
+
+    private _registerHandshake(): void {
         this.addEvent('pong', new PongEvent());
     }
 
-    private _registerNavigator() {
+    private _registerNavigator(): void {
         this.addEvent('open_create_room', new OpenCreateRoomEvent());
     }
 
-    private _registerRooms() {
+    private _registerRooms(): void {
         this.addEvent('move_to', new MoveToEvent());
 
         this.addEvent('go_to_room', new GoToRoomEvent());
     }
 
-    private _registerUsers() {
+    private _registerUsers(): void {
         this.addEvent('disconnect', new DisconnectEvent());
     }
 

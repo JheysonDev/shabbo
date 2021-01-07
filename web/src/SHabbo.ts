@@ -13,7 +13,7 @@ class SHabbo {
             const response = await Axios.get<Settings>(`${SHabbo.API_URL}settings/all`);
             SHabbo.setSettings(response.data);
 
-            SHabbo.getPagesManager().run();
+            await SHabbo.getPagesManager().run();
             document.title = SHabbo.getSetting('hotel_name', 'SHabbo');
         } catch (e) {
             SHabbo.getPagesManager().changePage('server_down');

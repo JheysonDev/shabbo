@@ -106,7 +106,7 @@ class RoomManager {
                 });
 
                 avatar.onClick = () => {
-                    const avatarClickOptions = SHabbo.getHotelManager().getUIManager().getComponentsManager().getComponent('avatar_click_options');
+                    const avatarClickOptions = SHabbo.getHotelManager().getUIManager().getComponentsManager().get('avatar_click_options');
                     if (avatarClickOptions) {
                         if (!avatarClickOptions.isActive()) {
                             avatarClickOptions.build();

@@ -1,4 +1,6 @@
+import OpenCreateRoomComposer from "@Communication/outgoing/navigator/OpenCreateRoomComposer";
 import TextInput from "@HabboHotel/ui/widgets/forms/TextInput";
+import WindowContainer from "@HabboHotel/ui/widgets/WindowContainer";
 import SHabbo from "@SHabbo";
 import { Container, Graphics, Sprite, Text, TextStyle } from "pixi.js";
 import { Subject } from "rxjs";
@@ -152,37 +154,23 @@ class CreateRoomWindow extends Component {
         return roomName;
     }
 
-    build(): boolean {
+    async build(): Promise<void> {
+        await SHabbo.getHotelManager().getConnection().sendPacket(new OpenCreateRoomComposer());
+
+        const window = new WindowContainer('Create a Room', this._width, this._height)
+        this.container = window;
+
         this.setActive(true);
         this.container.zIndex = 2;
 
-        const box = new Graphics();
-        this.addChild(box);
-
-        box.lineStyle(1, 0x9E9E9E);
-        box.beginFill(0xE0E0E0, 0.8);
-        box.drawRoundedRect(0, 0, this._width, this._height, 4);
-        box.endFill();
-
-        const titleContainer = new Container();
-        box.addChild(titleContainer);
-
-        titleContainer.x = 0;
-        titleContainer.y = 12;
-
-        const title = new Text('Create a room', new TextStyle({ fontFamily: 'Roboto', fontSize: 16, fontWeight: 'bold' }));
-        titleContainer.addChild(title);
-
-        title.x = box.width / 2 - title.width / 2;
-
         const roomModels = this._buildRoomModels();
-        box.addChild(roomModels);
+        this.addChild(roomModels);
 
         roomModels.x = 12;
-        roomModels.y = titleContainer.height + titleContainer.y + 12;
+        roomModels.y = window.title_height + 12;
 
         const roomName = this._buildroomName();
-        box.addChild(roomName);
+        this.addChild(roomName);
 
         roomName.x = 12;
         roomName.y = roomModels.height + roomModels.y + 8;
@@ -190,21 +178,20 @@ class CreateRoomWindow extends Component {
         this.container.x = ~~(this.screenWidth / 2 - this.container.width / 2);
         this.container.y = ~~(this.screenHeight / 2 - this.container.height / 2);
 
-        return this.addToMain();
+        this.addToMain();
     }
 
-    dispose(): boolean {
+    async dispose(): Promise<void> {
         this._roomModelSelectedID = 0;
 
         if (this._roomNameInput) {
             this._roomNameInput.dispose();
         }
 
-        const removed = this.removeFromMain();
+        this.removeFromMain();
         this.container = new Container();
-        this.setActive(false);
 
-        return removed;
+        this.setActive(false);
     }
 }
 

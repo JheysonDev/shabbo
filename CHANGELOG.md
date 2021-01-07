@@ -1,5 +1,10 @@
 # Unreleased
 
+## 7/1/2021
+- (@danielsolartech) (Web) Add catalogue window and default layout.
+- (@danielsolartech) (Web) Add catalogue manager.
+- (@danielsolartech) Add catalogue pages packets.
+
 ## 4/1/2021
 - (@danielsolartech) (Api) Add facemasks, 2021 countdown and some rares to items and catalogue datas.
 - (@danielsolartech) (Api) Add catalogue and items managers.

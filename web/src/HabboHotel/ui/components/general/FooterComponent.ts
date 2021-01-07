@@ -1,4 +1,3 @@
-import OpenCreateRoomComposer from "@Communication/outgoing/navigator/OpenCreateRoomComposer";
 import TextInput from "@HabboHotel/ui/widgets/forms/TextInput";
 import HabboContainer from "@HabboHotel/ui/widgets/HabboContainer";
 import HoverContainer from "@HabboHotel/ui/widgets/HoverContainer";
@@ -130,15 +129,11 @@ class FooterComponent extends Component {
     }
 
     private async _onRoomsButtonClick(): Promise<void> {
-        const createRoomWindow = SHabbo.getHotelManager().getUIManager().getComponentsManager().getComponent('create_room_window');
-        if (createRoomWindow) {
-            if (!createRoomWindow.isActive()) {
-                await SHabbo.getHotelManager().getConnection()?.sendPacket(new OpenCreateRoomComposer());
-                createRoomWindow.build();
-            } else {
-                createRoomWindow.dispose();
-            }
-        }
+        await SHabbo.getHotelManager().getUIManager().getComponentsManager().toggle('create_room_window');
+    }
+
+    private async _onCatalogueButtonClick(): Promise<void> {
+        await SHabbo.getHotelManager().getUIManager().getComponentsManager().toggle('catalogue_window');
     }
 
     private _navContainer: HabboContainer | null = null;
@@ -159,7 +154,7 @@ class FooterComponent extends Component {
     private _userButton: Container | null = null;
     private _userActions: Container | null = null;
 
-    build(): void {
+    async build(): Promise<void> {
         this._navContainer = new HabboContainer(60, 124);
         this.container.zIndex = 1000;
 
@@ -169,11 +164,13 @@ class FooterComponent extends Component {
         this._roomsButton.y = 8;
         this._navContainer.addChild(this._roomsButton);
 
-        this._roomsButton.on('click', async () => await this._onRoomsButtonClick());
+        this._roomsButton.addListener('click', async () => await this._onRoomsButtonClick());
 
         this._catalogueButton = this._buildNavButton(CatalogueIcon, 'Catalogue');
         this._catalogueButton.y = this._roomsButton.height + this._roomsButton.y + 8;
         this._navContainer.addChild(this._catalogueButton);
+
+        this._catalogueButton.addListener('click', async () => await this._onCatalogueButtonClick());
 
         this._buildInRoomNavButtons();
 

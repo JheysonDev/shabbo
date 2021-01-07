@@ -1,7 +1,7 @@
 import Page from "@Pages/Page";
 
 class ServerDownPage extends Page {
-    build(): HTMLElement {
+    async build(): Promise<HTMLElement> {
         const error = document.createElement('div');
         error.classList.add('error');
 

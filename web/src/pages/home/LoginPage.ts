@@ -16,7 +16,7 @@ class LoginPage extends Page {
         require('@Assets/styles/pages/home/login.scss');
     }
 
-    build(): HTMLElement {
+    async build(): Promise<HTMLElement> {
         const login = document.createElement('div');
         login.classList.add('login');
 

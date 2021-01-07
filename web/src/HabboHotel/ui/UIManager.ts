@@ -13,7 +13,7 @@ class UIManager {
     }
 
     isChildInMain(component: DisplayObject): boolean {
-        const main = this.getComponentsManager().getComponent('main');
+        const main = this.getComponentsManager().get('main');
         if (!main || !main.isActive()) {
             return false;
         }
@@ -22,7 +22,7 @@ class UIManager {
     }
 
     addChildToMain(component: DisplayObject): DisplayObject | null {
-        const main = this.getComponentsManager().getComponent('main');
+        const main = this.getComponentsManager().get('main');
         if (this.isChildInMain(component) || !main || !main.isActive()) {
             return null;
         }
@@ -31,7 +31,7 @@ class UIManager {
     }
 
     removeChildFromMain(component: DisplayObject): DisplayObject | null {
-        const main = this.getComponentsManager().getComponent('main');
+        const main = this.getComponentsManager().get('main');
         if (!this.isChildInMain(component) || !main || !main.isActive()) {
             return null;
         }

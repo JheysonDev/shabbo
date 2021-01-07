@@ -8,7 +8,7 @@ import CreditIcon from "@Assets/images/header/credits.png";
 import DiamondIcon from "@Assets/images/header/diamonds.png";
 
 class HeaderComponent extends Component {
-    build(): void {
+    async build(): Promise<void> {
         this.container = new HabboContainer(198, 30);
 
         this.container.x = this.screenWidth / 2 - this.container.width / 2;

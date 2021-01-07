@@ -5,6 +5,8 @@ interface InputOptions {
     width?: number;
     radius?: Radius;
 
+    font_size?: number;
+
     max_length?: number;
 }
 
@@ -116,7 +118,7 @@ class TextInput extends Container {
 
     private _inputBox: Graphics = new Graphics();
 
-    private _textStyle: TextStyle = new TextStyle({ fontFamily: 'Roboto', fontSize: 16 });
+    private _textStyle: TextStyle = new TextStyle({ fontFamily: 'Roboto', fontSize: this.options?.font_size ?? 16 });
     private _inputText: Text = new Text(this.placeholder, this._textStyle);
 
     private _selector: Graphics = new Graphics();

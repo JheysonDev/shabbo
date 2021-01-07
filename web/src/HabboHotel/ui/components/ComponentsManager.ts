@@ -9,6 +9,7 @@ import MainComponent from "./general/MainComponent";
 import AvatarClickOptions from "./rooms/AvatarClickOptions";
 
 // Windows
+import CatalogueWindow from "./windows/CatalogueWindow";
 import CreateRoomWindow from "./windows/CreateRoomWindow";
 
 class ComponentsManager {
@@ -27,17 +28,18 @@ class ComponentsManager {
     }
 
     private _registerGeneral(): void {
-        this.addComponent('footer', new FooterComponent());
-        this.addComponent('header', new HeaderComponent());
-        this.addComponent('main', new MainComponent());
+        this.add('footer', new FooterComponent());
+        this.add('header', new HeaderComponent());
+        this.add('main', new MainComponent());
     }
 
     private _registerRooms(): void {
-        this.addComponent('avatar_click_options', new AvatarClickOptions());
+        this.add('avatar_click_options', new AvatarClickOptions());
     }
 
     private _registerWindows(): void {
-        this.addComponent('create_room_window', new CreateRoomWindow());
+        this.add('catalogue_window', new CatalogueWindow());
+        this.add('create_room_window', new CreateRoomWindow());
     }
 
     forEach(fn: (component: IComponent) => void, only_active: boolean = false): void {
@@ -50,20 +52,38 @@ class ComponentsManager {
         }
     }
 
-    getComponent(name: string): IComponent | null {
+    get(name: string): IComponent | null {
         return this.components.get(name) || null;
     }
 
-    hasComponent(name: string): boolean {
+    has(name: string): boolean {
         return this.components.has(name);
     }
 
-    addComponent(name: string, component: IComponent): void {
-        if (this.hasComponent(name)) {
+    add(name: string, component: IComponent): void {
+        if (this.has(name)) {
             return;
         }
 
         this.components.set(name, component);
+    }
+
+    async build(name: string): Promise<void> {
+        const component = this.get(name);
+        if (component && !component.isActive()) {
+            await component.build();
+        }
+    }
+
+    async toggle(name: string): Promise<void> {
+        const component = this.get(name);
+        if (component) {
+            if (component.isActive()) {
+                await component.dispose();
+            } else {
+                await component.build();
+            }
+        }
     }
 }
 

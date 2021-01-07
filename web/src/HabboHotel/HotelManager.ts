@@ -6,6 +6,7 @@ import UserManager from "./users/UserManager";
 import NavigatorManager from "./navigator/NavigatorManager";
 import Connection from "@Communication/Connection";
 import RoomManager from "./rooms/RoomManager";
+import CatalogueManager from "./catalogue/CatalogueManager";
 
 class HotelManager {
     private connection: Connection;
@@ -14,6 +15,7 @@ class HotelManager {
     private game: Shroom;
 
     private ui: UIManager;
+    private catalogue: CatalogueManager;
     private navigator: NavigatorManager;
     private room: RoomManager;
     private user: UserManager;
@@ -37,16 +39,14 @@ class HotelManager {
         });
 
         this.ui = new UIManager();
+        this.catalogue = new CatalogueManager();
         this.navigator = new NavigatorManager();
         this.room = new RoomManager();
         this.user = new UserManager();
     }
 
-    run(): void {
-        const main = this.getUIManager().getComponentsManager().getComponent('main');
-        if (main && !main.isActive()) {
-            main.build();
-        }
+    async run(): Promise<void> {
+        await this.ui.getComponentsManager().build('main');
 
         window.onresize = () => {
             const { width, height } = this.application.screen;
@@ -70,6 +70,10 @@ class HotelManager {
 
     getUIManager(): UIManager {
         return this.ui;
+    }
+
+    getCatalogueManager(): CatalogueManager {
+        return this.catalogue;
     }
 
     getNavigatorManager(): NavigatorManager {

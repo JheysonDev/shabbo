@@ -1,12 +1,10 @@
 import PacketComposer from "../PacketComposer";
 
 class PongComposer extends PacketComposer {
-    constructor(private beat: number) {
+    constructor(beat: number) {
         super('pong');
-    }
 
-    async execute(): Promise<void> {
-        this.writeInteger(this.beat);
+        this.writeInteger(beat);
     }
 }
 

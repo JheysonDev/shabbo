@@ -68,6 +68,8 @@ class CatalogueManager {
     }
 
     async loadPagesByParentID(parent_id: number | null): Promise<ICatalogPage[]> {
+        parent_id = parent_id <= 0 ? null : parent_id;
+
         const pages: ICatalogPage[] = [];
 
         const pages_db = await SHabbo.getDatabase().getCatalogPages().find({ parent_id });

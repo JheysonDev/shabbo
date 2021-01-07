@@ -52,7 +52,7 @@ class PagesManager {
         return document.getElementById('shabbo') as HTMLDivElement;
     }
 
-    changePage(name: string): Page | null {
+    async changePage(name: string): Promise<Page | null> {
         if (this.current_page) {
             if (this.main_element) {
                 for (const e of this.main_element.children) {
@@ -70,7 +70,7 @@ class PagesManager {
             }
 
             page.buildCSS();
-            this.main_element.appendChild(page.build());
+            this.main_element.appendChild(await page.build());
 
             this.current_page = page;
         }
@@ -78,14 +78,14 @@ class PagesManager {
         return null;
     }
 
-    run(): void {
+    async run(): Promise<void> {
         const page = document.location.pathname.toLowerCase();
 
         if (page === '/login') {
-            this.changePage('login');
+            await this.changePage('login');
             return;
         } else if (page === '/client') {
-            this.changePage('client');
+            await this.changePage('client');
             return;
         }
 
