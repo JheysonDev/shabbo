@@ -167,7 +167,7 @@ class CreateRoomWindow extends Component {
         this.addChild(roomModels);
 
         roomModels.x = 12;
-        roomModels.y = window.title_height + 12;
+        roomModels.y = window.title_height;
 
         const roomName = this._buildroomName();
         this.addChild(roomName);

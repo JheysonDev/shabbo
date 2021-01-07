@@ -51,10 +51,8 @@ class CatalogueWindow extends Component {
         this._top_page_selected_id = top_page.page.id;
 
         if (top_page.page.type === 'default') {
-            this._layout = new DefaultTopLayout(top_page, this.container.width, this.container.height);
-            this._layout.x = 8;
-            this._layout.y = this._top_pages_container.y + this._top_pages_container.height + 12;
-
+            const y = this._top_pages_container.y + this._top_pages_container.height + 12;
+            this._layout = new DefaultTopLayout(top_page, 8, y, this._width, this._height);
             this.addChild(this._layout);
         }
     }
@@ -170,7 +168,7 @@ class CatalogueWindow extends Component {
         this.container.zIndex = 2;
 
         this.addChild(this._top_pages_container);
-        this._top_pages_container.y = window.title_height + 12;
+        this._top_pages_container.y = window.title_height;
 
         this.container.x = ~~(this.screenWidth / 2 - this.container.width / 2);
         this.container.y = ~~(this.screenHeight / 2 - this.container.height / 2);
