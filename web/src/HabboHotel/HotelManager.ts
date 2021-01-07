@@ -1,4 +1,4 @@
-import { Application } from "pixi.js";
+import { Application, DisplayObject, Point } from "pixi.js";
 import { Shroom } from "@jankuss/shroom";
 import SHabbo from "@SHabbo";
 import UIManager from "./ui/UIManager";
@@ -52,6 +52,18 @@ class HotelManager {
             const { width, height } = this.application.screen;
             this.ui.getComponentsManager().forEach((component) => component.on('resize', width, height), true);
         };
+
+        this.application.view.addEventListener('wheel', (e) => {
+            const objectPosition: DisplayObject = this.application
+                .renderer
+                .plugins
+                .interaction
+                .hitTest(new Point(e.clientX, e.clientY), this.application.stage);
+
+            if (objectPosition) {
+                objectPosition.emit('scroll', e);
+            }
+        });
 
         this.application.ticker.add(() => this.ui.getComponentsManager().forEach((component) => component.on('tick'), true));
     }

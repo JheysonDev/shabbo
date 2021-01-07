@@ -12,10 +12,14 @@ class ScrollContainer {
         this.main = this._buildMain();
         this.scroll = this._buildScroll();
         this.mask = this._buildMask();
+
+        this._addListeners();
     }
 
     private _buildMain(): Container {
         const main = new Container();
+
+        main.interactive = true;
 
         return main;
     }
@@ -31,10 +35,37 @@ class ScrollContainer {
         const mask = new Graphics();
         mask.lineStyle(1).beginFill().drawRect(0, 0, this.width, this.height).endFill();
 
-        this.scroll.mask = mask;
+        this.main.mask = mask;
         this.main.addChild(mask);
 
         return mask;
+    }
+
+    updateScrollPosition(): void {
+        if (this.scroll.y > 0) {
+            this.scroll.y = 0;
+        }
+
+        if (this.scroll.height > this.height) {
+            const new_size_y: number = this.scroll.height + this.scroll.y;
+            if (new_size_y < this.height) {
+                this.scroll.y = this.height - this.scroll.height;
+            }
+        } else if (this.scroll.y < 0) {
+            this.scroll.y = 0;
+        }
+    }
+
+    private _onScroll(e: WheelEvent): void {
+        if (this.scroll.height > this.height) {
+            this.scroll.y -= e.deltaY;
+            this.updateScrollPosition();
+        }
+    }
+
+    private _addListeners(): void {
+        this.main.on('scroll', (e: WheelEvent) => this._onScroll(e));
+        this.scroll.on('scroll', (e: WheelEvent) => this._onScroll(e));
     }
 
     getMain(): Container {

@@ -93,6 +93,8 @@ class DefaultTopLayout extends Container {
 
             i++;
         }
+
+        this.pages_box.updateScrollPosition();
     }
 
     private _slicePages(start: number, end: number, level: number): ChildBox[] {

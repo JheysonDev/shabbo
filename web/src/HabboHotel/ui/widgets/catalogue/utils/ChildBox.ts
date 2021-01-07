@@ -193,10 +193,17 @@ class ChildBox extends Graphics {
         }
     }
 
+    private _onScroll(e: WheelEvent): void {
+        if (this.parent) {
+            this.parent.emit('scroll', e);
+        }
+    }
+
     private _registerListeners(): void {
         this.addListener('mouseover', () => this._onMouseOver());
         this.addListener('mouseout', () => this._onMouseOut());
         this.addListener('click', () => this._onClick());
+        this.on('scroll', (e: WheelEvent) => this._onScroll(e));
     }
 
     toInitialState(): void {
