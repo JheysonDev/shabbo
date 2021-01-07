@@ -1,4 +1,4 @@
-import { Application, DisplayObject, Point } from "pixi.js";
+import { Application, DisplayObject, Point, SCALE_MODES, settings } from "pixi.js";
 import { Shroom } from "@jankuss/shroom";
 import SHabbo from "@SHabbo";
 import UIManager from "./ui/UIManager";
@@ -21,6 +21,8 @@ class HotelManager {
     private user: UserManager;
 
     constructor() {
+        settings.SCALE_MODE = SCALE_MODES.NEAREST;
+
         this.connection = new Connection();
 
         this.application = new Application({
