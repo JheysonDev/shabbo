@@ -183,6 +183,8 @@ class ChildBox extends Graphics {
                 this.page_collapsible.y = this.height / 2 - this.page_collapsible.height / 2;
 
                 await this._fetchChildren();
+            } else if (this._on_children_load) {
+                this._on_children_load();
             }
 
             if (this._on_select) {

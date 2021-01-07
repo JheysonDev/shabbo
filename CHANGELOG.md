@@ -1,6 +1,7 @@
 # Unreleased
 
 ## 7/1/2021
+- (@danielsolartech) (Web) Fix navigation between catalogue pages.
 - (@danielsolartech) (Api) Move pets to Staffs catalogue page and rename 'Groups' to 'Gangs'.
 - (@danielsolartech) (Web) Change hover background color and add background color per level to catalogue pages.
 - (@danielsolartech) (Web) Add scroll container.

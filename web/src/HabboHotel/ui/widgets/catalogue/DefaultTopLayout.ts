@@ -89,8 +89,6 @@ class DefaultTopLayout extends Container {
                     this.can_choose = false;
                     await child.select();
                 }
-
-                //child.y = this.search.y + this.search.height + 4;
             }
 
             i++;
@@ -151,15 +149,14 @@ class DefaultTopLayout extends Container {
 
             child_box.onChildrenLoad = async () => {
                 const subchildren = await this._buildChildren(child_box.getPageChildren(), level + 1);
-                if (subchildren.length) {
-                    const parent_index = this.pages_actives.findIndex((child) => child.getPageID() === child_box.getPageID());
-                    if (parent_index >= 0) {
-                        const no_update = this._slicePages(0, parent_index + 1, level);
-                        const to_update = this._slicePages(parent_index + 1, this.pages_actives.length, level);
 
-                        this.pages_actives = no_update.concat(subchildren.concat(to_update));
-                        await this._updateChildren();
-                    }
+                const parent_index = this.pages_actives.findIndex((child) => child.getPageID() === child_box.getPageID());
+                if (parent_index >= 0) {
+                    const no_update = this._slicePages(0, parent_index + 1, level);
+                    const to_update = this._slicePages(parent_index + 1, this.pages_actives.length, level);
+
+                    this.pages_actives = no_update.concat(subchildren.concat(to_update));
+                    await this._updateChildren();
                 }
             };
 
