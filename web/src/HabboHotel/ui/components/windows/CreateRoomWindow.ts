@@ -160,6 +160,8 @@ class CreateRoomWindow extends Component {
         const window = new WindowContainer('Create a Room', this._width, this._height)
         this.container = window;
 
+        window.onClose = async () => await this.dispose();
+
         this.setActive(true);
         this.container.zIndex = 2;
 
@@ -188,7 +190,7 @@ class CreateRoomWindow extends Component {
             this._roomNameInput.dispose();
         }
 
-        this.removeFromMain();
+        this.container.destroy();
         this.container = new Container();
 
         this.setActive(false);

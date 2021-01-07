@@ -147,6 +147,8 @@ class CatalogueWindow extends Component {
         const window = new WindowContainer('Catalogue', this._width, this._height);
         this.container = window;
 
+        window.onClose = async () => await this.dispose();
+
         this._top_pages = SHabbo.getHotelManager().getCatalogueManager().getPages(0);
         if (!this._top_pages.length) {
             await SHabbo.getHotelManager().getConnection().sendPacket(new OpenCatalogPageComposer(0));
@@ -177,17 +179,24 @@ class CatalogueWindow extends Component {
     }
 
     async dispose(): Promise<void> {
+        this._top_pages_container.destroy();
         this._top_pages_container = new Container();
+
         this._top_pages = [];
+        this._top_pages_actives.forEach((page) => page.destroy());
         this._top_pages_actives = [];
 
         this._top_page_selected.complete();
         this._top_page_selected.unsubscribe();
         this._top_page_selected = new Subject();
-
         this._top_page_selected_id = 0;
 
-        this.removeFromMain();
+        if (this._layout) {
+            this._layout.destroy();
+            this._layout = null;
+        }
+
+        this.container.destroy();
         this.container = new Container();
 
         this.setActive(false);
