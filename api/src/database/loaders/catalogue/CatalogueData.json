@@ -352,51 +352,9 @@
                 ]
             },
             {
-                "parent": { "name": "Pets" },
+                "parent": { "name": "Gangs" },
                 "children": [
-                    { "parent": { "name": "Accessories" } },
-                    {
-                        "parent": { "name": "Babies" },
-                        "children": [
-                            { "parent": { "name": "Food & Toys" } },
-                            { "parent": { "name": "Kitten" } },
-                            { "parent": { "name": "Piglets" } },
-                            { "parent": { "name": "Pupples" } }
-                        ]
-                    },
-                    { "parent": { "name": "Bear" } },
-                    { "parent": { "name": "Bunny" } },
-                    { "parent": { "name": "Cat" } },
-                    { "parent": { "name": "Chick" } },
-                    { "parent": { "name": "Croc" } },
-                    { "parent": { "name": "Dog" } },
-                    { "parent": { "name": "Dragon" } },
-                    { "parent": { "name": "Frog" } },
-                    {
-                        "parent": { "name": "Horse" },
-                        "children": [
-                            { "parent": { "name": "Accessories" } },
-                            { "parent": { "name": "Buy" } },
-                            { "parent": { "name": "Dyes" } },
-                            { "parent": { "name": "Hair Styles" } },
-                            { "parent": { "name": "Jump Race" } },
-                            { "parent": { "name": "Saddles" } }
-                        ]
-                    },
-                    { "parent": { "name": "Lion" } },
-                    { "parent": { "name": "Monkey" } },
-                    { "parent": { "name": "Obbah Mobbah" } },
-                    { "parent": { "name": "Pig" } },
-                    { "parent": { "name": "Rhinno" } },
-                    { "parent": { "name": "Spider" } },
-                    { "parent": { "name": "Terrier" } },
-                    { "parent": { "name": "Turtle" } }
-                ]
-            },
-            {
-                "parent": { "name": "Groups" },
-                "children": [
-                    { "parent": { "name": "Create a Group" } },
+                    { "parent": { "name": "Create a Gang" } },
                     { "parent": { "name": "Forum" } },
                     { "parent": { "name": "Furni" } }
                 ]
@@ -532,13 +490,13 @@
         "parent": { "name": "Staffs" },
         "children": [
             { "parent": { "name": "Classical Rares" } },
+            { "parent": { "name": "Collectibles" } },
             {
                 "parent": { "name": "Craftables" },
                 "children": [
                     { "parent": { "name": "Plushies" } }
                 ]
             },
-            { "parent": { "name": "Collectibles" } },
             {
                 "parent": { "name": "Diamond Paintings" },
                 "items": [
@@ -597,6 +555,48 @@
                             { "id": 11764, "cost_credits": 500 }
                         ]
                     }
+                ]
+            },
+            {
+                "parent": { "name": "Pets" },
+                "children": [
+                    { "parent": { "name": "Accessories" } },
+                    {
+                        "parent": { "name": "Babies" },
+                        "children": [
+                            { "parent": { "name": "Food & Toys" } },
+                            { "parent": { "name": "Kitten" } },
+                            { "parent": { "name": "Piglets" } },
+                            { "parent": { "name": "Pupples" } }
+                        ]
+                    },
+                    { "parent": { "name": "Bear" } },
+                    { "parent": { "name": "Bunny" } },
+                    { "parent": { "name": "Cat" } },
+                    { "parent": { "name": "Chick" } },
+                    { "parent": { "name": "Croc" } },
+                    { "parent": { "name": "Dog" } },
+                    { "parent": { "name": "Dragon" } },
+                    { "parent": { "name": "Frog" } },
+                    {
+                        "parent": { "name": "Horse" },
+                        "children": [
+                            { "parent": { "name": "Accessories" } },
+                            { "parent": { "name": "Buy" } },
+                            { "parent": { "name": "Dyes" } },
+                            { "parent": { "name": "Hair Styles" } },
+                            { "parent": { "name": "Jump Race" } },
+                            { "parent": { "name": "Saddles" } }
+                        ]
+                    },
+                    { "parent": { "name": "Lion" } },
+                    { "parent": { "name": "Monkey" } },
+                    { "parent": { "name": "Obbah Mobbah" } },
+                    { "parent": { "name": "Pig" } },
+                    { "parent": { "name": "Rhinno" } },
+                    { "parent": { "name": "Spider" } },
+                    { "parent": { "name": "Terrier" } },
+                    { "parent": { "name": "Turtle" } }
                 ]
             },
             {
