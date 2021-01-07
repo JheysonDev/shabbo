@@ -126,8 +126,8 @@ class ChildBox extends Graphics {
         }
 
         this.clear()
-            .lineStyle(1, 0x000000)
-            .beginFill(0x000000, 0)
+            .lineStyle(1, 0x9E9E9E, 0.3)
+            .beginFill(0x9E9E9E, 0.3)
             .drawRoundedRect(0, 0, this.pages_width, this.pages_height, 4)
             .endFill();
 
@@ -161,9 +161,10 @@ class ChildBox extends Graphics {
         } else {
             this.is_selected = true;
 
+            const colors: number[] = [0x3F51B5, 0x3F51B5, 0x5C6BC0, 0x7986CB];
             this.clear()
-                .lineStyle(1, 0x3F51B5)
-                .beginFill(0x3F51B5)
+                .lineStyle(1, colors[this.level] || colors[0])
+                .beginFill(colors[this.level] || colors[0])
                 .drawRoundedRect(0, 0, this.pages_width, this.pages_height, 4)
                 .endFill();
 

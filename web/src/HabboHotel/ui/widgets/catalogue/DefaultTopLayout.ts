@@ -3,6 +3,7 @@ import CatalogueManager from "@HabboHotel/catalogue/CatalogueManager";
 import SHabbo from "@SHabbo";
 import { Container } from "pixi.js";
 import TextInput from "../forms/TextInput";
+import ScrollContainer from "../utils/ScrollContainer";
 import ChildBox from "./utils/ChildBox";
 
 class DefaultTopLayout extends Container {
@@ -13,6 +14,7 @@ class DefaultTopLayout extends Container {
     private pages_height: number;
 
     private search: Container;
+    private pages_box: ScrollContainer;
 
     private can_choose: boolean;
     private page_active: (ChildBox | null)[];
@@ -32,6 +34,7 @@ class DefaultTopLayout extends Container {
         this.pages_height = 26;
 
         this.search = this._buildSearch();
+        this.pages_box = this._buildPagesBox();
 
         this.can_choose = false;
         this.page_active = [];
@@ -54,12 +57,26 @@ class DefaultTopLayout extends Container {
         return text_input;
     }
 
+    private _buildPagesBox(): ScrollContainer {
+        const search_height = this.search.y + this.search.height + 4;
+        const max_height = this.pages_height * 16 + 4 * 15;
+
+        const scroll_box = new ScrollContainer(this.pages_width, max_height);
+        const scroll_main = scroll_box.getMain();
+
+        this.addChild(scroll_main);
+
+        scroll_main.y = search_height;
+
+        return scroll_box;
+    }
+
     private async _updateChildren(): Promise<void> {
         let i: number = 0;
         for await (const child of this.pages_actives) {
             if (!child.mounted) {
                 child.mounted = true;
-                this.addChild(child);
+                this.pages_box.addChild(child);
             }
 
             if (i !== 0) {
@@ -73,7 +90,7 @@ class DefaultTopLayout extends Container {
                     await child.select();
                 }
 
-                child.y = this.search.y + this.search.height + 4;
+                //child.y = this.search.y + this.search.height + 4;
             }
 
             i++;
@@ -190,6 +207,8 @@ class DefaultTopLayout extends Container {
     destroy(): void {
         this.search.destroy();
         this.search = new Container();
+
+        this.pages_box.destroy();
 
         this.page_active = [];
 
