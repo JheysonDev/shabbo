@@ -1,6 +1,9 @@
 # Unreleased
 
 ## 7/1/2021
+- (@danielsolartech) (Web) Add dragging to window container.
+- (@danielsolartech) (Web) Update `@jankuss/shroom` to 0.3.1.
+- (@danielsolartech) (Web) Fix catalogue pages max height;
 - (@danielsolartech) (Web) Add wheel event to scroll container.
 - (@danielsolartech) (Web) Fix navigation between catalogue pages.
 - (@danielsolartech) (Api) Move pets to Staffs catalogue page and rename 'Groups' to 'Gangs'.
