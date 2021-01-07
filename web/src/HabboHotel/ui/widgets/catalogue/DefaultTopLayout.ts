@@ -7,9 +7,6 @@ import ScrollContainer from "../utils/ScrollContainer";
 import ChildBox from "./utils/ChildBox";
 
 class DefaultTopLayout extends Container {
-    private max_width: number;
-    private max_height: number;
-
     private pages_width: number;
     private pages_height: number;
 
@@ -22,15 +19,17 @@ class DefaultTopLayout extends Container {
 
     constructor(
         private top_page: CatalogPages,
+        x: number,
+        y: number,
         width_container: number,
-        height_container: number,
+        private height_container: number,
     ) {
         super();
 
-        this.max_width = width_container - 16;
-        this.max_height = height_container - 12;
+        this.x = x;
+        this.y = y;
 
-        this.pages_width = ~~(this.max_width * 0.35);
+        this.pages_width = ~~((width_container - 16) * 0.35);
         this.pages_height = 26;
 
         this.search = this._buildSearch();
@@ -59,7 +58,7 @@ class DefaultTopLayout extends Container {
 
     private _buildPagesBox(): ScrollContainer {
         const search_height = this.search.y + this.search.height + 4;
-        const max_height = this.pages_height * 16 + 4 * 15;
+        const max_height = this.height_container - this.y - search_height - 12;
 
         const scroll_box = new ScrollContainer(this.pages_width, max_height);
         const scroll_main = scroll_box.getMain();
