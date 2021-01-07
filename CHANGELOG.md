@@ -1,6 +1,8 @@
 # Unreleased
 
 ## 7/1/2021
+- (@danielsolartech) (Web) Change scales mode to nearest.
+- (@danielsolartech) (Web) Add close button to window container.
 - (@danielsolartech) (Web) Add dragging to window container.
 - (@danielsolartech) (Web) Update `@jankuss/shroom` to 0.3.1.
 - (@danielsolartech) (Web) Fix catalogue pages max height;
