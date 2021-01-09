@@ -8,7 +8,8 @@
     "dev": "npm run build && npm run start:dev",
     "dev:watch": "nodemon",
     "start": "node ./build/index.js",
-    "start:dev": "ts-node ./src/index.ts"
+    "start:dev": "ts-node ./src/index.ts",
+    "format": "prettier --write **/*.{ts,js,json}"
   },
   "keywords": [],
   "author": "Daniel Solarte Chaverra",
@@ -38,6 +39,7 @@
     "@types/socket.io": "^2.1.12",
     "dotenv": "^8.2.0",
     "nodemon": "^2.0.6",
+    "prettier": "^2.2.1",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3"
   }

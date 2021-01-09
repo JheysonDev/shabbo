@@ -3,8 +3,8 @@ import 'reflect-metadata';
 import SHabbo from '@SHabbo';
 
 try {
-    const app = new SHabbo();
-    app.run();
+  const app = new SHabbo();
+  app.run();
 } catch (e) {
-    console.log('Running app error', e);
+  console.log('Running app error', e);
 }
