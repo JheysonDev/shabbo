@@ -1,6 +1,6 @@
-import HotelManager from "@HabboHotel/HotelManager";
-import PagesManager from "@Pages/PagesManager";
-import Axios from "axios";
+import HotelManager from '@HabboHotel/HotelManager';
+import PagesManager from '@Pages/PagesManager';
+import Axios from 'axios';
 
 class SHabbo {
     private static settings: Settings = {};
@@ -10,7 +10,9 @@ class SHabbo {
 
     async run(): Promise<void> {
         try {
-            const response = await Axios.get<Settings>(`${SHabbo.API_URL}settings/all`);
+            const response = await Axios.get<Settings>(
+                `${SHabbo.API_URL}settings/all`
+            );
             SHabbo.setSettings(response.data);
 
             SHabbo.getPagesManager().run();

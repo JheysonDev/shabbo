@@ -1,5 +1,5 @@
-import SHabbo from "@SHabbo";
-import "@Assets/styles/general.scss";
+import SHabbo from '@SHabbo';
+import '@Assets/styles/general.scss';
 
 try {
     const app = new SHabbo();

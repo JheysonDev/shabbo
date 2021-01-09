@@ -1,23 +1,23 @@
 {
-  "compilerOptions": {
-    "target": "ES6",
-    "module": "CommonJS",
-    "moduleResolution": "Node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "outDir": "./build/",
-    "rootDir": "./src/",
-    "baseUrl": "./src/",
-    "paths": {
-      "@Communication/*": ["communication/*"],
-      "@Database/*": ["database/*"],
-      "@HabboHotel/*": ["HabboHotel/*"],
-      "@Logs": ["logs/LogsManager.ts"],
-      "@Server/*": ["server/*"],
-      "@SHabbo": ["SHabbo.ts"]
+    "compilerOptions": {
+        "target": "ES6",
+        "module": "CommonJS",
+        "moduleResolution": "Node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "outDir": "./build/",
+        "rootDir": "./src/",
+        "baseUrl": "./src/",
+        "paths": {
+            "@Communication/*": ["communication/*"],
+            "@Database/*": ["database/*"],
+            "@HabboHotel/*": ["HabboHotel/*"],
+            "@Logs": ["logs/LogsManager.ts"],
+            "@Server/*": ["server/*"],
+            "@SHabbo": ["SHabbo.ts"]
+        },
+        "typeRoots": ["./node_modules/@types", "./src/@types"]
     },
-    "typeRoots": ["./node_modules/@types", "./src/@types"]
-  },
-  "exclude": ["./node_modules/"],
-  "include": ["./src/"]
+    "exclude": ["./node_modules/"],
+    "include": ["./src/"]
 }

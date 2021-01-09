@@ -15,17 +15,10 @@
             "@Communication/*": ["communication/*"],
             "@HabboHotel/*": ["HabboHotel/*"],
             "@Pages/*": ["pages/*"],
-            "@SHabbo": ["SHabbo.ts"],
+            "@SHabbo": ["SHabbo.ts"]
         },
-        "typeRoots": [
-            "./node_modules/@types",
-            "./src/@types",
-        ],
+        "typeRoots": ["./node_modules/@types", "./src/@types"]
     },
-    "exclude": [
-        "./node_modules/",
-    ],
-    "include": [
-        "./src/",
-    ],
+    "exclude": ["./node_modules/"],
+    "include": ["./src/"]
 }
